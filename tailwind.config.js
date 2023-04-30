@@ -2,12 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./app/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -24,7 +19,7 @@ module.exports = {
           900: "#2c354e",
           950: "#1d2334",
         },
-        'cinnabar-red': {
+        "cinnabar-red": {
           50: "#fef2f2",
           100: "#fee2e2",
           200: "#fdcbcb",
@@ -37,12 +32,16 @@ module.exports = {
           900: "#7e1e1e",
           950: "#440b0b",
         },
+        success: "#71A104",
       },
       fontFamily: {
-        barbapro: ["var(--font-dunbar)", ...defaultTheme.fontFamily.sans],
+        barbapro: ["var(--font-barbapro)", ...defaultTheme.fontFamily.sans],
         inter: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
-      }
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
+  variants: {
+    scrollbar: ["rounded"],
+  },
 };
