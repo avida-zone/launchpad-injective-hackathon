@@ -32,8 +32,11 @@ module.exports = {
           900: "#17474a",
           950: "#07282c",
         },
-        error:"#b71e1e",
+        error: "#b71e1e",
         success: "#71A104",
+      },
+      gridTemplateColumns: {
+        "auto-280": "repeat(auto-fill,minmax(280px,1fr))",
       },
       fontFamily: {
         barbapro: ["var(--font-barbapro)", ...defaultTheme.fontFamily.sans],

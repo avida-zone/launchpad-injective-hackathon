@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { formatNumber } from "~/utils/intl";
 
@@ -45,9 +46,11 @@ const Preview: React.FC = () => {
         <span className="text-xs text-gray-400">Native token</span>
         <p className="text-sm">{data.denom}</p>
       </div>
-      <div className="col-span-2">
+      <div className="col-span-2 flex flex-col">
         <span className="text-xs text-gray-400 ">Token Prospectus URL</span>
-        <p className="text-sm truncate">{data.tokenUrl}</p>
+        <Link className="text-sm truncate hover:text-java-green-600" href={data.tokenUrl} target="_blank">
+          {data.tokenUrl}
+        </Link>
       </div>
 
       <div className="col-span-2">
