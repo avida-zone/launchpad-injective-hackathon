@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { formatNumber } from "~/utils/intl";
 
 const data = {
   tokenName: "Cookie Monster",
@@ -35,7 +34,8 @@ const Preview: React.FC = () => {
       </div>
       <div>
         <span className="text-xs text-gray-400">Initial Suply</span>
-        <p className="text-sm">{formatNumber(data.initialSuply)}</p>
+        {/*  <p className="text-sm">{formatNumber(data.initialSuply)}</p> */}
+        <p className="text-sm">{data.initialSuply}</p>
       </div>
 
       <div>

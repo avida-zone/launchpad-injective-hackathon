@@ -5,7 +5,6 @@ import Head from "next/head";
 import { useState } from "react";
 import Accordion from "~/components/Acordion";
 import StepContainer from "~/components/ApplySteps/StepContainer";
-import { formatNumber } from "~/utils/intl";
 
 const steps = [
   [
@@ -159,7 +158,8 @@ const Apply: NextPage = () => {
 
                   <div>
                     <span className="text-xs text-gray-400">Initial Suply</span>
-                    <p className="text-sm">{formatNumber(data.initialSuply)}</p>
+                    {/* <p className="text-sm">{formatNumber(data.initialSuply)}</p> */}
+                    <p className="text-sm">{data.initialSuply}</p>
                   </div>
                   <div>
                     <span className="text-xs text-gray-400">Decimals</span>

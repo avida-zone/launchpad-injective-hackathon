@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { formatNumber } from "~/utils/intl";
 
 const projects = [
   {
@@ -118,7 +117,8 @@ const Projects: NextPage = () => {
                 </div>
                 <div>
                   <span className="text-xs text-gray-400">Initial Suply</span>
-                  <p className="text-sm">{formatNumber(project.initialSuply)}</p>
+                  {/* <p className="text-sm">{formatNumber(project.initialSuply)}</p> */}
+                  <p className="text-sm">{project.initialSuply}</p>
                 </div>
                 <div>
                   <span className="text-xs text-gray-400">Decimals</span>
