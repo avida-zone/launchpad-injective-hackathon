@@ -18,7 +18,7 @@ interface Props {
 
 const StepContainer: React.FC<Props> = ({ currentStep, setStep, maxStep }) => {
   return (
-    <div className="flex flex-col bg-white flex-1 p-4 rounded-lg gap-8 snap-start">
+    <div className="flex flex-col bg-white flex-1 p-4 rounded-lg gap-8 snap-start overflow-hidden">
       <div>
         <div>
           <Stepper maxStep={maxStep} currentStep={currentStep} />
