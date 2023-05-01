@@ -1,9 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./triangule.css";
+@import "./switch.css";
 
 .max-layout {
-  max-width: 1024px;
+  max-width: 1200px;
 }
 
 #body {
@@ -17,4 +19,24 @@ h4,
 h5,
 h6 {
   font-family: theme("fontFamily.barbapro");
+}
+
+.container-triangules-bg {
+  gap: calc(0.75em / 0.866) 0.75em;
+  grid-template-columns: 8em repeat(auto-fill, 8em 8em);
+  transform: translate(25%, -50%) rotate(45deg);
+}
+
+.triangules-bg {
+  aspect-ratio: 0.866;
+  margin-bottom: calc(-50% / 0.866);
+  width: 8em;
+}
+
+.triangules-bg:nth-child(even) {
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.triangules-bg:nth-child(odd) {
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
 }
