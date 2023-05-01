@@ -160,7 +160,7 @@ const Home: NextPage = () => {
         id="faqs"
         className="w-full lg:min-h-screen pt-[80px] flex gap-20 flex-col items-center justify-center px-4 snap-start lg:snap-center"
       >
-        <div className="w-full flex-1 max-layout gap-8 p-4 md:p-8 rounded-md flex flex-col items-center justify-center min-h-[70vh] relative z-10">
+        <div className="w-full flex-1 max-layout gap-8 md:p-8 rounded-md flex flex-col items-center justify-center min-h-[70vh] relative z-10">
           <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-kashmir-blue-500 to-java-green-600 text-4xl">FAQS</h3>
           <div className="flex-1 flex items-center justify-center lg:max-w-[90%]">
             <Accordion items={faqsQuestions} />
