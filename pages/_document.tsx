@@ -10,7 +10,7 @@ export default function Document() {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.svg" />
       </Head>
-      <body>
+      <body className="scrollbar-none">
         <Main />
         <NextScript />
       </body>
