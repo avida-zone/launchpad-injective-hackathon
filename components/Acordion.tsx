@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React, { useState } from "react";
-import ArrowDownSline from "./Icons/ArrowDownSline";
+import ArrowDownSline from "./Icons/ArrowDownSlineIcon";
 
 interface AccItem {
   id?: string;

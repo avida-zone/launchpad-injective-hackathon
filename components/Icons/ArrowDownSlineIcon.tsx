@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArrowDownSline: React.FC<React.SVGAttributes<HTMLOrSVGElement>> = ({ ...props }) => {
+const ArrowDownSlineIcon: React.FC<React.SVGAttributes<HTMLOrSVGElement>> = ({ ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,4 +20,4 @@ const ArrowDownSline: React.FC<React.SVGAttributes<HTMLOrSVGElement>> = ({ ...pr
   );
 };
 
-export default ArrowDownSline;
+export default ArrowDownSlineIcon;

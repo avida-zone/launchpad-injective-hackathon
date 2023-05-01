@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { InputHTMLAttributes, useState } from "react";
 
 interface ISwitch {
@@ -5,7 +6,14 @@ interface ISwitch {
   name: string;
 }
 
-const Switch: React.FC<InputHTMLAttributes<HTMLInputElement> & ISwitch> = ({ label, name, checked: defaultValue, onChange, ...props }) => {
+const Switch: React.FC<InputHTMLAttributes<HTMLInputElement> & ISwitch> = ({
+  label,
+  name,
+  className,
+  checked: defaultValue,
+  onChange,
+  ...props
+}) => {
   const [checked, setChecked] = useState<boolean>(defaultValue as boolean);
 
   const changeChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +22,7 @@ const Switch: React.FC<InputHTMLAttributes<HTMLInputElement> & ISwitch> = ({ lab
   };
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className={clsx("flex flex-col gap-1", className)}>
       {label && (
         <label className="block text-xs text-gray-700 text-left" htmlFor={`switch-${name}`}>
           {label}

@@ -3,12 +3,11 @@ import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
-import Step3 from "./Step3";
 import Success from "./Success";
 import SimpleButton from "../Buttons/Button";
 import Stepper from "../Stepper";
 
-const steps = [<Step1 key="step-0" />, <Step2 key="step-1" />, <Step3 key="step-2" />, <Success key="step-success" />];
+const steps = [<Step1 key="step-0" />, <Step2 key="step-1" />, <Success key="step-success" />];
 
 interface Props {
   currentStep: number;
@@ -18,7 +17,7 @@ interface Props {
 
 const StepContainer: React.FC<Props> = ({ currentStep, setStep, maxStep }) => {
   return (
-    <div className="flex flex-col bg-white flex-1 p-4 rounded-lg gap-8">
+    <div className="flex flex-col bg-white flex-1 p-4 rounded-lg gap-8 snap-start">
       <div>
         <div>
           <Stepper maxStep={maxStep} currentStep={currentStep} />

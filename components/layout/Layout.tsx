@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import clsx from "clsx";
+import { useRouter } from "next/router";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,6 +29,7 @@ const barbapro = localFont({
 });
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+  const { pathname } = useRouter();
   return (
     <div
       id="body"
@@ -38,7 +40,11 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       )}
     >
       <Navbar />
-      <main className="w-full snap-mandatory snap-y transition-all scrollbar-none relative overflow-scroll h-screen">
+      <main
+        className={clsx("w-full", {
+          "snap-mandatory snap-y transition-all scrollbar-none relative overflow-scroll h-screen": pathname === "/",
+        })}
+      >
         {children}
         <Footer />
       </main>

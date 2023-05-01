@@ -5,7 +5,6 @@ import clsx from "clsx";
 
 const Navbar: React.FC = () => {
   const { pathname } = useRouter();
-  console.log(pathname);
   return (
     <nav className="fixed top-0 w-full backdrop-blur-lg z-50">
       <div className="max-layout my-0 mx-auto flex items-start justify-between w-full p-4">

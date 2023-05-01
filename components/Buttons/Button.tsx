@@ -17,7 +17,7 @@ const Button: ButtonComponent = ({ children, className, as: AsComponent, scale =
   return (
     <Component
       className={clsx(
-        `rounded-xl disabled:!opacity-50 transition-all flex justify-center items-center disabled:cursor-not-allowed font-bold border border-transparent outline-none`,
+        `rounded-sm disabled:!opacity-50 transition-all flex justify-center items-center disabled:cursor-not-allowed font-bold border border-transparent outline-none`,
         variant.includes("primary") && "bg-cinnabar-red-700 text-white hover:bg-cinnabar-red-600",
         variant.includes("secondary") &&
           "bg-transparent !border-cinnabar-red-700 text-cinnabar-red-700 hover:text-white hover:bg-cinnabar-red-700",
