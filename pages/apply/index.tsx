@@ -47,7 +47,7 @@ const steps = [
       ),
     },
     {
-      title: "Trusted Issuers",
+      title: "Issuers",
       content: (
         <>
           <p>

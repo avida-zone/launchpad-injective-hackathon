@@ -40,3 +40,8 @@ h6 {
 .triangules-bg:nth-child(odd) {
   clip-path: polygon(0 50%, 100% 0, 100% 100%);
 }
+
+.input-radio:checked + label {
+  background: theme("colors.java-green.600");
+  color: theme("colors.white");
+}
