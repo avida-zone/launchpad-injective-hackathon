@@ -46,7 +46,7 @@ const attributes = [
 const Step2: React.FC = () => {
   const [selectProof, setSelectProof] = useState<number>();
   return (
-    <div className="gap-6 flex flex-col lg:flex-row w-full p-4 h-full">
+    <div className="gap-6 flex flex-col lg:flex-row w-full lg:p-4 h-full">
       <div className="flex flex-col gap-2 flex-1">
         <h2 className="text-lg lg:mb-4">Proof Requests</h2>
         {proofs.map((e, i) => {
@@ -70,7 +70,7 @@ const Step2: React.FC = () => {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 20, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="mt-4"
+              className="mt-6"
             >
               <h2 className="text-lg lg:mb-6">Issuer</h2>
               <div className="flex items-center p-3 border border-kashmir-blue-500 rounded  transition-all text-white bg-kashmir-blue-500">

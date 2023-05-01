@@ -34,7 +34,12 @@ const Footer: React.FC = () => {
           <Link href="/apply" className="text-java-green-600 hover:text-kashmir-blue-500">
             Create RG-Token Proposal
           </Link>
-          <Link href="/projects" className="text-java-green-600 hover:text-kashmir-blue-500"></Link>
+          <Link href="/projects" className="text-java-green-600 hover:text-kashmir-blue-500">
+            Projects
+          </Link>
+          <Link href="/projects" className="text-java-green-600 hover:text-kashmir-blue-500">
+            FAQS
+          </Link>
         </div>
       </div>
     </footer>

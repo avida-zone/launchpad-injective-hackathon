@@ -31,17 +31,10 @@ const barbapro = localFont({
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const { pathname } = useRouter();
   return (
-    <div
-      id="body"
-      className={clsx(
-        "flex min-h-screen flex-col items-center justify-between bg-gradient-to-bl from-gray-50 from-60% to-java-green-600 relative",
-        inter.variable,
-        barbapro.variable
-      )}
-    >
+    <div id="body" className={clsx("flex min-h-screen flex-col items-center justify-between relative", inter.variable, barbapro.variable)}>
       <Navbar />
       <main
-        className={clsx("w-full overflow-hidden", {
+        className={clsx("w-full overflow-hidden bg-gradient-to-bl from-gray-50 lg:from-60% from-70% to-java-green-600", {
           "lg:snap-mandatory lg:snap-y transition-all lg:scrollbar-none relative lg:overflow-scroll lg:h-screen": pathname === "/",
         })}
       >

@@ -6,8 +6,9 @@ import Step2 from "./Step2";
 import Success from "./Success";
 import SimpleButton from "../Buttons/Button";
 import Stepper from "./Stepper";
+import Preview from "./Preview";
 
-const steps = [<Step1 key="step-0" />, <Step2 key="step-1" />, <Success key="step-success" />];
+const steps = [<Step1 key="step-0" />, <Step2 key="step-1" />, <Preview key="step-2" />, <Success key="step-success" />];
 
 interface Props {
   currentStep: number;

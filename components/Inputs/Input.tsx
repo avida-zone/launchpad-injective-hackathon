@@ -21,11 +21,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & Input>(
             className={clsx(
               `shadow-sm border text-sm py-2 px-3 rounded-md border-gray-300 outline-none focus:border-kashmir-blue-300 transition-all disabled:cursor-help`,
               className && className,
-              error && "border-pink-700"
+              error && "border-error"
             )}
             {...props}
           />
-          {error && <p className="text-pink-900 text-xs absolute bottom-[-18px] w-full text-left">{error}</p>}
+          {error && <p className="text-error text-xs absolute bottom-[-18px] w-full text-left">{error}</p>}
           {helpText && (
             <p className="mt-2 text-sm text-gray-500" id="email-description">
               {helpText}

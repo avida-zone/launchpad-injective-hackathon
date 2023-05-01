@@ -26,7 +26,7 @@ const Header: React.FC = () => {
         <div className="triangle triangleZ2"></div>
         <div className="ball"></div>
       </div>
-      <div className="max-w-[500px] lg:mb-[200px] relative z-20">
+      <div className="max-w-[500px] xl:max-w-[650px] lg:mb-[200px] relative z-20">
         <h1 className="text-2xl md:text-4xl text-center">
           Launch your <span className="text-java-green-600">Regulatory Grade </span> Token
         </h1>

@@ -21,6 +21,9 @@ h6 {
   font-family: theme("fontFamily.barbapro");
 }
 
+.grid-project {
+}
+
 .container-triangules-bg {
   gap: calc(0.75em / 0.866) 0.75em;
   grid-template-columns: 8em repeat(auto-fill, 8em 8em);

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 
-const textSteps = ["Step 1: Define RG-Token", "Step 2: Define Proofs", "Application sent"];
+const textSteps = ["Step 1: Define RG-Token", "Step 2: Define Proofs", "Step 3: Final Preview", "Application sent"];
 
 const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, currentStep }) => {
   return (
@@ -38,7 +38,7 @@ const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, 
           );
         })}
       </div>
-      <div className=" grid grid-cols-3 w-full content-center mt-2 gap-4">
+      <div className=" grid grid-cols-4 w-full content-center mt-2 gap-4">
         {textSteps.map((text, i) => {
           return (
             <div
