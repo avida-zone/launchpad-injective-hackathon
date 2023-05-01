@@ -45,12 +45,15 @@ const Navbar: React.FC = () => {
             </p>
           </Link>
           {isLg && (
-            <div className="items-center flex text-sm gap-4 font-bold">
+            <div className="items-center flex text-sm gap-6 font-bold">
               <Link href="/apply" className="hover:text-java-green-600 transition-all">
                 Create RG-Token Proposal
               </Link>
               <Link href="/projects" className="hover:text-java-green-600 transition-all">
                 Projects
+              </Link>
+              <Link href="/assets" className="hover:text-java-green-600 transition-all">
+                Assets
               </Link>
             </div>
           )}
