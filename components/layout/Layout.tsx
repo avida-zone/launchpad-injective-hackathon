@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import clsx from "clsx";
 import { useRouter } from "next/router";
+import useMediaQuery from "~/hooks/useMediaQuery";
+import Link from "next/link";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,6 +32,7 @@ const barbapro = localFont({
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const { pathname } = useRouter();
+  const isLg = useMediaQuery("lg");
   return (
     <div id="body" className={clsx("flex min-h-screen flex-col items-center justify-between relative", inter.variable, barbapro.variable)}>
       <Navbar />

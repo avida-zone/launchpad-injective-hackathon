@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Buttons/Button";
 import { useRouter } from "next/router";
 import clsx from "clsx";
@@ -11,29 +11,65 @@ import Hamburguer from "./Hamburguer";
 const Navbar: React.FC = () => {
   const { pathname } = useRouter();
   const isLg = useMediaQuery("lg");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <nav className="fixed top-0 w-full backdrop-blur-lg z-50">
-      <div className="max-layout my-0 mx-auto flex items-center justify-between w-full p-4">
-        <Link href="/">
-          <p className="font-barbapro text-5xl flex">
-            <LogoGradientIcon className="w-9 h-9" />
-            VIPAD
-          </p>
-        </Link>
-        <div className="items-center flex text-sm gap-4 font-bold">
-          <Link href="/apply" className="hover:text-java-green-600 transition-all">
-            Create RG-Token Proposal
-          </Link>
-          <Link href="/projects" className="hover:text-java-green-600 transition-all">
-            Projects
-          </Link>
+    <>
+      {!isLg ? (
+        <div
+          className={clsx(
+            "fixed h-[calc(100vh-72px)] backdrop-blur-2xl justify-between p-4 py-12 pb-32 flex flex-col text-base gap-4 font-bold w-full z-50 transition-all duration-500",
+            isOpen ? "top-[72px]" : "top-[-100vh]"
+          )}
+        >
+          <div className="flex flex-col gap-4">
+            <Link href="/apply" className="hover:text-java-green-600 transition-all bg-white p-4 w-full rounded-lg">
+              Create RG-Token Proposal
+            </Link>
+            <Link href="/projects" className="hover:text-java-green-600 transition-all bg-white p-4 w-full rounded-lg">
+              Projects
+            </Link>
+          </div>
+          <Button variant="tertiary" scale="lg">
+            Connect wallet
+          </Button>
         </div>
-        <div className={clsx(pathname === "/" ? "hidden" : "")}>
-          <Button variant="tertiary">Connect wallet</Button>
+      ) : (
+        ""
+      )}
+      <nav className="fixed top-0 w-full backdrop-blur-lg z-50">
+        <div className="max-layout my-0 mx-auto flex items-center justify-between w-full p-4">
+          <Link href="/">
+            <p className="font-barbapro text-4xl lg:text-5xl flex">
+              <LogoGradientIcon className="w-8 h-8 lg:w-9 lg:h-9" />
+              VIPAD
+            </p>
+          </Link>
+          {isLg && (
+            <div className="items-center flex text-sm gap-4 font-bold">
+              <Link href="/apply" className="hover:text-java-green-600 transition-all">
+                Create RG-Token Proposal
+              </Link>
+              <Link href="/projects" className="hover:text-java-green-600 transition-all">
+                Projects
+              </Link>
+            </div>
+          )}
+          {isLg && (
+            <div className={clsx(pathname === "/" ? "hidden" : "")}>
+              <Button variant="tertiary">Connect wallet</Button>
+            </div>
+          )}
+          {!isLg && (
+            <Hamburguer
+              isOpen={isOpen}
+              toggleOpen={() => {
+                setIsOpen(!isOpen);
+              }}
+            />
+          )}
         </div>
-        {!isLg && <Hamburguer />}
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
