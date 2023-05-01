@@ -2,8 +2,11 @@ import React from "react";
 
 const Header: React.FC = () => {
   return (
-    <header className="h-screen scrollbar-none pt-[80px] flex gap-20 flex-col lg:flex-row items-center justify-center p-4 relative overflow-x-hidden">
-      <div className="w-[35rem] h-[35rem] absolute top-[-15rem] right-[-15rem] bg-kashmir-blue-500 rounded-full blur-[90px]" />
+    <header
+      className="h-screen scrollbar-none pt-[80px] flex gap-20 flex-col lg:flex-row items-center justify-center p-4 lg:relative overflow-x-hidden
+    bg-gradient-to-tr from-transparent from-60% to-java-green-600 lg:bg-transparent"
+    >
+      <div className="w-[35rem] h-[35rem] absolute left-[-15rem] top-[70vh] lg:left-auto lg:bottom-auto lg:top-[-15rem] lg:right-[-10rem] bg-kashmir-blue-500 rounded-full blur-[90px]" />
       <div className="container-triangules-bg absolute w-full right-[-10rem] top-0 z-10 hidden lg:grid">
         {Array.from({ length: 100 }).map((_, i) => {
           return (

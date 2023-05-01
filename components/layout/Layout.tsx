@@ -41,8 +41,8 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     >
       <Navbar />
       <main
-        className={clsx("w-full", {
-          "snap-mandatory snap-y transition-all scrollbar-none relative overflow-scroll h-screen": pathname === "/",
+        className={clsx("w-full overflow-hidden", {
+          "lg:snap-mandatory lg:snap-y transition-all lg:scrollbar-none relative lg:overflow-scroll lg:h-screen": pathname === "/",
         })}
       >
         {children}
