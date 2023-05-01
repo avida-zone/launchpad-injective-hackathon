@@ -5,7 +5,7 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Success from "./Success";
 import SimpleButton from "../Buttons/Button";
-import Stepper from "../Stepper";
+import Stepper from "./Stepper";
 
 const steps = [<Step1 key="step-0" />, <Step2 key="step-1" />, <Success key="step-success" />];
 

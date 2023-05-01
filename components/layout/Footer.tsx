@@ -3,6 +3,7 @@ import LogoIcon from "../Icons/LogoIcon";
 import DiscordIcon from "../Icons/DiscordIcon";
 import TwitterIcon from "../Icons/TwitterIcon";
 import Link from "next/link";
+import GithubIcon from "../Icons/GithubIcon";
 
 const Footer: React.FC = () => {
   return (
@@ -13,19 +14,27 @@ const Footer: React.FC = () => {
             <LogoIcon className="fill-white w-9 h-9" />
             VIPAD
           </p>
-          <ul className="flex gap-4">
-            <DiscordIcon className="w-7 h-7 text-white hover:text-kashmir-blue-200" />
-            <TwitterIcon className="w-7 h-7 text-white hover:text-kashmir-blue-200" />
+          <ul className="flex gap-4 ">
+            <Link href="/" className="text-white hover:text-kashmir-blue-200">
+              <DiscordIcon className="w-7 h-7" />
+            </Link>
+            <Link href="/" className="text-white hover:text-kashmir-blue-200">
+              <TwitterIcon className="w-7 h-7" />
+            </Link>
+            <Link href="/" className="text-white hover:text-kashmir-blue-200">
+              <GithubIcon className="w-7 h-7" />
+            </Link>
           </ul>
         </div>
-        <div className="flex flex-col gap-1 text-java-green-900">
+        <div className="flex flex-col gap-1 text-java-green-900 text-sm">
           <p className="mb-1 text-lg">Services</p>
           <Link href="/" className="text-java-green-600 hover:text-kashmir-blue-500">
             Home
           </Link>
           <Link href="/apply" className="text-java-green-600 hover:text-kashmir-blue-500">
-            Apply
+            Apply for RG-Token
           </Link>
+          <Link href="/projects" className="text-java-green-600 hover:text-kashmir-blue-500"></Link>
         </div>
       </div>
     </footer>

@@ -15,7 +15,7 @@ const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, 
                   "transition-all border rounded-full p-2 w-8 h-8 text-lg leading-6 flex items-center justify-center",
                   { "border-kashmir-blue-500 bg-kashmir-blue-500 text-white": i < currentStep },
                   { "border-java-green-500 text-java-green-700": i >= currentStep },
-                  { "border-success text-success": i === maxStep - 1 && i === currentStep }
+                  { "!border-success text-success": i === maxStep - 1 && i === currentStep }
                 )}
                 key={`step-${i}`}
               >

@@ -12,8 +12,8 @@ const Step1: React.FC = () => {
       <Input label="Decimals" container="col-span-2" />
       <h2 className="col-span-2 lg:col-span-4 mt-8">Define RG-Token</h2>
       <Input label="Token Prospectus URL" container="col-span-2 lg:col-span-4" />
-      <Switch name="limit-tokens" label="Limit Tokens per Address" />
-      <Input label="Limit Number" container="lg:col-span-3" disabled />
+      <Switch name="udenom" label="Transform native token" />
+      <Input label="Denom" container="lg:col-span-3" disabled />
     </div>
   );
 };
