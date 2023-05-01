@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { Inter } from "@next/font/google";
-import localFont from "@next/font/local";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import clsx from "clsx";
 
 const inter = Inter({
@@ -32,14 +32,16 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     <div
       id="body"
       className={clsx(
-        "flex min-h-screen flex-col items-center justify-between bg-gray-100",
+        "flex min-h-screen flex-col items-center justify-between bg-gradient-to-bl from-gray-50 from-60% to-cinnabar-red-900 relative",
         inter.variable,
         barbapro.variable
       )}
     >
       <Navbar />
-      <main className="flex-1"></main>
-      <Footer />
+      <main className="w-full snap-mandatory snap-y transition-all scrollbar-none relative overflow-scroll h-screen">
+        {children}
+        <Footer />
+      </main>
     </div>
   );
 };

@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className=" w-full min-h-[150px] bg-gradient-to-br from-kashmir-blue-400 from-40% to-cinnabar-red-600  text-white shadow-lg ">
+    <footer className=" w-full min-h-[150px] backdrop-blur-xl  text-white shadow-lg snap-start">
       <div className="max-layout my-0 mx-auto w-full p-4 flex justify-between">
-        <p>AVIDA</p>
+        <p className="font-barbapro text-4xl">AVIPAD</p>
       </div>
     </footer>
   );
