@@ -8,7 +8,7 @@ const Header: React.FC = () => {
         {Array.from({ length: 100 }).map((_, i) => {
           return (
             <div
-              className="triangules-bg bg-white even:hover:bg-cinnabar-red-800 odd:hover:bg-kashmir-blue-500 transition-all"
+              className="triangules-bg bg-white even:hover:bg-java-green-700 odd:hover:bg-kashmir-blue-500 transition-all"
               key={`triangule-${i}`}
             ></div>
           );
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
       </div>
       <div className="max-w-[500px] lg:mb-[200px] relative z-20">
         <h1 className="text-2xl md:text-4xl text-center">
-          Your <span className="text-cinnabar-red-700">legitimate</span> launchpad
+          Your <span className="text-java-green-600">legitimate</span> launchpad
         </h1>
         <p className="text-center mt-8">The first legal platform to launch your project</p>
       </div>

@@ -35,7 +35,7 @@ const Accordion: React.FC<IProps> = ({ items }) => {
             <div
               className={clsx(
                 "flex items-center justify-between cursor-pointer transition-all  ",
-                visible?.title.includes(title) && "text-cinnabar-red-700",
+                visible?.title.includes(title) && "text-java-green-600",
                 i === items.length - 1 ? "border-b-0 pt-2" : "border-b border-gray-300 py-2"
               )}
               onClick={() => handleClick({ content, id, icon, title })}

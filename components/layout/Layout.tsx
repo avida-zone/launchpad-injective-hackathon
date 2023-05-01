@@ -34,7 +34,7 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     <div
       id="body"
       className={clsx(
-        "flex min-h-screen flex-col items-center justify-between bg-gradient-to-bl from-gray-50 from-60% to-cinnabar-red-900 relative",
+        "flex min-h-screen flex-col items-center justify-between bg-gradient-to-bl from-gray-50 from-60% to-java-green-600 relative",
         inter.variable,
         barbapro.variable
       )}

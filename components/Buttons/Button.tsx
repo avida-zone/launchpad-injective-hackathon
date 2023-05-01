@@ -18,13 +18,12 @@ const Button: ButtonComponent = ({ children, className, as: AsComponent, scale =
     <Component
       className={clsx(
         `rounded-sm disabled:!opacity-50 transition-all flex justify-center items-center disabled:cursor-not-allowed font-bold border border-transparent outline-none`,
-        variant.includes("primary") && "bg-cinnabar-red-700 text-white hover:bg-cinnabar-red-600",
-        variant.includes("secondary") &&
-          "bg-transparent !border-cinnabar-red-700 text-cinnabar-red-700 hover:text-white hover:bg-cinnabar-red-700",
+        variant.includes("primary") && "bg-java-green-600 text-white hover:bg-java-green-600",
+        variant.includes("secondary") && "bg-transparent !border-java-green-600 text-java-green-600 hover:text-white hover:bg-java-green-600",
         variant.includes("cuaternary") &&
           "bg-transparent !border-kashmir-blue-500 text-kashmir-blue-500 hover:text-white hover:bg-kashmir-blue-500",
         variant.includes("tertiary") &&
-          "!border-none bg-gradient-to-tl from-kashmir-blue-500 from-30% to-cinnabar-red-700 hover:brightness-110 text-white",
+          "!border-none bg-gradient-to-tl from-kashmir-blue-500 from-30% to-java-green-500 hover:brightness-110 text-white",
         scale?.includes("sm") && "text-sm md:text-base px-4 py-2",
         scale?.includes("lg") && "text-lg px-8 py-4",
         className

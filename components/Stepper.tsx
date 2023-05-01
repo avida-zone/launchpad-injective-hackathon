@@ -14,7 +14,7 @@ const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, 
                 className={clsx(
                   "transition-all border rounded-full p-2 w-8 h-8 text-lg leading-6 flex items-center justify-center",
                   { "border-kashmir-blue-500 bg-kashmir-blue-500 text-white": i < currentStep },
-                  { "border-cinnabar-red-700 text-cinnabar-red-900": i >= currentStep },
+                  { "border-java-green-500 text-java-green-700": i >= currentStep },
                   { "border-success text-success": i === maxStep - 1 && i === currentStep }
                 )}
                 key={`step-${i}`}
@@ -26,10 +26,10 @@ const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, 
                   "h-[5px] flex-1",
                   { "bg-kashmir-blue-500": i < currentStep },
                   {
-                    "bg-gradient bg-gradient-to-r from-kashmir-blue-500 to-cinnabar-red-700":
+                    "bg-gradient bg-gradient-to-r from-kashmir-blue-500 to-java-green-500":
                       i === currentStep - 1 && currentStep !== maxStep - 1,
                   },
-                  { "bg-cinnabar-red-700": i >= currentStep },
+                  { "bg-java-green-500": i >= currentStep },
                   { "bg-gradient bg-gradient-to-r from-kashmir-blue-500 to-success": i === maxStep - 2 && currentStep === maxStep - 1 },
                   { hidden: i === maxStep - 1 }
                 )}
