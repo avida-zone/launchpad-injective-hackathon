@@ -18,7 +18,8 @@ const Button: ButtonComponent = ({ children, className, as: AsComponent, scale =
     <Component
       className={clsx(
         `disabled:!opacity-50 transition-all flex rounded justify-center items-center disabled:cursor-not-allowed font-bold border border-transparent outline-none`,
-        variant.includes("primary") && "bg-java-green-600 text-white hover:bg-java-green-600",
+        variant.includes("primary") &&
+          "border border-transparent bg-java-green-600 text-white hover:bg-java-green-50 hover:text-java-green-600 hover:border-java-green-700",
         variant.includes("secondary") && "bg-transparent !border-java-green-600 text-java-green-600 hover:text-white hover:bg-java-green-600",
         variant.includes("cuaternary") &&
           "bg-transparent !border-kashmir-blue-500 text-kashmir-blue-500 hover:text-white hover:bg-kashmir-blue-500",

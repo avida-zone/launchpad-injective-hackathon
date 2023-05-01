@@ -16,14 +16,14 @@ const Hamburguer: React.FC<Props> = ({ isOpen, toggleOpen }) => {
       onClick={toggleOpen}
     >
       <div
-        className={clsx("bg-black h-[3px] w-1/2 rounded transform transition-all duration-300 origin-right delay-75", {
-          "-translate-y-[1px] h-[1px] -rotate-90": isOpen,
+        className={clsx("bg-black h-[3px] w-1/2 rounded-lg transform transition-all duration-300 origin-right delay-75", {
+          "-translate-y-[1px] !h-[2px] -rotate-90": isOpen,
         })}
       />
-      <div className="bg-black h-[2px] rounded" />
+      <div className={clsx("bg-black h-[2px] rounded-lg", isOpen ? "h-[1px]" : "")} />
       <div
-        className={clsx("bg-black h-[3px] w-1/2 rounded self-end transform transition-all duration-300 origin-left delay-75 group", {
-          "-rotate-90 h-[1px] translate-y-[1px]": isOpen,
+        className={clsx("bg-black h-[3px] w-1/2 self-end transform transition-all duration-300 origin-left delay-75 group rounded-lg", {
+          "-rotate-90 !h-[2px] translate-y-[1px]": isOpen,
         })}
       ></div>
     </div>
