@@ -8,7 +8,7 @@ const TimeLine: React.FC<Props> = ({ list }) => {
   return (
     <div className="flex-1 flex w-full items-start py-4 flex-col">
       <span className="hidden md:flex md:w-full md:h-1 bg-java-green-600 rounded-lg " />
-      <div className="flex md:items-center flex-col md:flex-row justify-between w-full">
+      <div className="flex md:items-start flex-col md:flex-row justify-between w-full">
         {list.map(({ title, text }, i) => {
           return (
             <div className="group flex gap-2 group transition-all p-2 h-full" key={`timeline-${i}`}>

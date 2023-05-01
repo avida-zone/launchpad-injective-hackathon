@@ -10,15 +10,15 @@ import TimeLine from "~/components/TimeLine";
 const timeLineTexts = [
   {
     title: "Step 1",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis leo sit amet felis ultrices, ac congue purus convallis. Etiam quis nisi a mauris ullamcorper pharetra.",
+    text: "Decide if you want the rgToken to be new (provide mint price and cap)  or a wrapper  of an existing one (provide denom). In both cases, provide token details such as denom, marketing info.",
   },
   {
     title: "Step 2",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis leo sit amet felis ultrices, ac congue purus convallis. Etiam quis nisi a mauris ullamcorper pharetra.",
+    text: "You can now choose the proofs required from the holders to interact with you rgToken. We use AnonCreds to power the ZK-proof, which supports selective disclosure and range proofs",
   },
   {
     title: "Step 3",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis leo sit amet felis ultrices, ac congue purus convallis. Etiam quis nisi a mauris ullamcorper pharetra.",
+    text: "This is a review step, which allows you to have an overview of everything you have input. As soon as the token is launched, it is registered on our adapter and your users can the native rgTokens immediately.",
   },
 ];
 
@@ -75,8 +75,51 @@ const faqsQuestions = [
     title: "What does AVIPAD stand for?",
     content: (
       <div className="text-sm text-gray-600">
-        <p>AVIPAD is a launch"pad" for rgTokens built on the AVIDA framwork.</p>
+        <p>AVIPAD is a launch"pad" for rgTokens built on the AVIDA framework.</p>
         <p>AVIDA stands for Atomic Verification of Identity for Decentralised Applications.</p>
+      </div>
+    ),
+  },
+  {
+    title: "What is a Vectis Account and why do I need the identity plugin?",
+    content: (
+      <div className="text-sm text-gray-600">
+        <p>Vectis is an account abstraction infrastructure currently implemented in Cosmwasm.</p>
+        <p>Its basic features are social recovery, account freezing and gasless metatransaction supports.</p>
+        <p>Features can be extended by installing plugins.</p>
+        <p>The Identity plugin links the offchain credential to the onchain account to prevent sybil attack.</p>
+      </div>
+    ),
+  },
+  {
+    title: "Why did we build this?",
+    content: (
+      <div className="text-sm text-gray-600">
+        <p>AVIDA framework and its implementation - AVIPAD is built by Nymlab.</p>
+        <p>
+          It is our second product (after Vectis) that aims to empower people socially and financially in a legal and privacy-protecting
+          environment.
+        </p>
+      </div>
+    ),
+  },
+  {
+    title: "How do I get involved?",
+    content: (
+      <div className="text-sm text-gray-600">
+        <p>
+          We are thrilled you are excited! Please do follow us on{" "}
+          <Link href="https://twitter.com/VectisDAO" target="_blank" className="font-bold text-kashmir-blue-500 hover:text-java-green-600">
+            twitter
+          </Link>{" "}
+          for updates.
+        </p>
+        <p>
+          For partnership please email{" "}
+          <Link href="mailto:dev@nymlab.it" target="_blank" className="font-bold text-kashmir-blue-500 hover:text-java-green-600">
+            dev@nymlab.it
+          </Link>
+        </p>
       </div>
     ),
   },
@@ -101,10 +144,9 @@ const Home: NextPage = () => {
             <h4>with Avipad</h4>
           </div>
           <p className="lg:max-w-[80%] text-justify text-sm lg:text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis leo sit amet felis ultrices, ac congue purus convallis. Etiam
-            quis nisi a mauris ullamcorper pharetra. Morbi pharetra nisl tincidunt nulla blandit condimentum. Duis porta ligula vel tempor
-            hendrerit. Integer imperdiet, velit ut faucibus luctus, velit est facilisis eros, viverra scelerisque nisi quam vitae dolor. Nullam
-            tempus turpis ac metus lobortis
+            AVIPAD is a tool to launch regulatory grade token (rgToken), which has the added feature for withdraw screening, i.e. accounts can
+            receive rgToken but to transfer it, the sender must provide a zero-knowledge proof of ownership of the credentials that satisfies
+            that particular token. Let’ walk through the simple steps to launch an rgToken.
           </p>
           <div className="lg:max-w-[85%] w-full">
             <TimeLine list={timeLineTexts} />
