@@ -73,6 +73,16 @@ export class QueryService {
 
   async getAllBalances(address: string) {
     const nativeBalances = await this.query.bank.allBalances(address);
+    const nativesWithInfo = await Promise.all(
+      nativeBalances.map(async (t) => {
+        if (t.denom === "inj") return t;
+        const metadata = await this.query.bank.denomMetadata(t.denom);
+        return {
+          ...t,
+          ...metadata,
+        };
+      })
+    );
     const newRgTokens = await this.getNewProjects("new");
     const transformRgTokens = await this.getNewProjects("transform");
     const rgNewTokensBalance = await Promise.all(
@@ -94,7 +104,7 @@ export class QueryService {
       })
     );
     return {
-      nativeBalances,
+      nativeBalances: nativesWithInfo,
       rgNewTokensBalance: rgNewTokensBalance.filter((p) => Number(p.balance.amount)),
       rgTransformTokensBalance: rgTransformTokensBalance.filter((p) => Number(p.balance.amount)),
     };

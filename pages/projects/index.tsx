@@ -5,8 +5,8 @@ import { useQuery } from "react-query";
 import { useCosmos } from "~/providers/CosmosProvider";
 
 const Projects: NextPage = () => {
-  const { queryService } = useCosmos();
-  const { data: projects } = useQuery(["projects", queryService], () => queryService.getNewProjects("transform"));
+  const { queryService, address } = useCosmos();
+  const { data: projects } = useQuery(["projects", queryService, address], () => queryService?.getNewProjects("transform"));
 
   return (
     <>
