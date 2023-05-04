@@ -14,7 +14,7 @@ const Assets: NextPage = () => {
 
   if (loading)
     return (
-      <div className="w-full mx-auto max-layout min-h-screen flex items-center justify-center pt-32 pb-12 relative">
+      <div className="flex items-center justify-center relative w-full">
         <Spinner />
       </div>
     );

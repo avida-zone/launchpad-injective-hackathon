@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Avipad</title>
       </Head>
-      <div className="snap-center">
+      <div className="snap-center w-full">
         <Header />
       </div>
       <section
