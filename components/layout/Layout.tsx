@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import ControlModal from "../Modals/ControlModal";
+import ControlModal from "../modals/ControlModal";
 import Spinner from "../Spinner";
 
 const inter = Inter({
