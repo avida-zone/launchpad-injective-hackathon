@@ -4,10 +4,15 @@ import { useForm } from "react-hook-form";
 import Button from "../Buttons/Button";
 import { useToast } from "~/hooks/useToast";
 import { useCosmos } from "~/providers/CosmosProvider";
+import { BigNumber } from "@injectivelabs/utils";
+import { useModal } from "~/providers/ModalProvider";
 
 interface Props {
   contractAddress: string;
   issuer: string;
+  tokenSymbol: string;
+  exponent: number;
+  price: { amount: string; denom: string };
 }
 
 interface FormInputs {
@@ -15,14 +20,18 @@ interface FormInputs {
   amount: string;
 }
 
-const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer }) => {
+const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer, tokenSymbol, exponent, price }) => {
   const { watch, setValue, handleSubmit } = useForm<FormInputs>();
+  const { hideModal } = useModal();
   const { txService } = useCosmos();
   const { toast } = useToast();
 
   const onSubmit = handleSubmit(async ({ controllerAddress, amount }) => {
     if (!txService) return;
-    await toast.promise(txService.buyRgToken(controllerAddress, contractAddress, amount, issuer));
+
+    const funds = BigNumber(price.amount).multipliedBy(amount).toFixed();
+    await toast.promise(txService.buyRgToken(controllerAddress, contractAddress, amount, { amount: funds, denom: price.denom }, issuer));
+    hideModal();
   });
 
   return (

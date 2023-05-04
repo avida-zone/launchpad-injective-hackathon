@@ -5,27 +5,23 @@ import { useEffect, useState } from "react";
 import Button from "~/components/Buttons/Button";
 import Spinner from "~/components/Spinner";
 import ModalTypes from "~/interfaces/ModalTypes";
-import { useCosmos } from "~/providers/CosmosProvider";
 import { useModal } from "~/providers/ModalProvider";
 
 const Project: NextPage = () => {
-  const { queryService } = useCosmos();
   const { showModal } = useModal();
-  const { query } = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [tokenInfo, setTokenInfo] = useState<any | null>({});
+  const { push: goToPage } = useRouter();
+  const [tokenInfo, setTokenInfo] = useState<any | null>(null);
 
   useEffect(() => {
-    (async () => {
-      if (!queryService || !query.tokenAddr) return;
-      setIsLoading(true);
-      const response = await queryService.getProject(query.tokenAddr as string);
-      setTokenInfo(response);
-      setIsLoading(false);
-    })();
-  }, [queryService, query.tokenAddr]);
+    const project = localStorage.getItem("project");
+    if (!project) {
+      goToPage("/");
+      return;
+    }
+    setTokenInfo(JSON.parse(project as string));
+  }, []);
 
-  if (isLoading || !tokenInfo) {
+  if (!tokenInfo) {
     return (
       <div className="flex items-center justify-center relative w-full">
         <Spinner />
@@ -73,7 +69,7 @@ const Project: NextPage = () => {
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
                 <div>
                   <span className="text-sm text-gray-400">Max Cap</span>
-                  <p>{tokenInfo?.initialSuply}</p>
+                  <p>{tokenInfo?.options.launch_type.new.cap}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-400">Decimals</span>
@@ -100,10 +96,11 @@ const Project: NextPage = () => {
               <Button
                 onClick={() =>
                   showModal(ModalTypes.buyTickets, {
-                    contractAddress: query.tokenAddr,
+                    contractAddress: tokenInfo.contract_address,
                     tokenSymbol: tokenInfo.symbol,
-                    exponent: tokenInfo.exponent,
+                    exponent: tokenInfo.decimals,
                     issuer: tokenInfo.issuer,
+                    price: tokenInfo.options.launch_type.new.price[0],
                   })
                 }
               >

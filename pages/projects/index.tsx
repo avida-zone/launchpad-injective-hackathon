@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Spinner from "~/components/Spinner";
 import { useCosmos } from "~/providers/CosmosProvider";
@@ -9,6 +10,7 @@ const Projects: NextPage = () => {
   const { queryService } = useCosmos();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [projects, setProjects] = useState<any | null>([]);
+  const { push: goToPage } = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -39,8 +41,11 @@ const Projects: NextPage = () => {
           {projects.length
             ? projects?.map((project, i) => {
                 return (
-                  <Link
-                    href={`/projects/${project.contract_address}`}
+                  <button
+                    onClick={() => {
+                      localStorage.setItem("project", JSON.stringify(project));
+                      goToPage(`/projects/${project.contract_address}`);
+                    }}
                     className="bg-gradient-to-b from-java-green-600 via-white to-white rounded-lg px-3 py-4 md:4 gap-4 grid grid-cols-3 hover:from-kashmir-blue-500
                 transition-all hover:via-white hover:to-white hover:scale-105 hover:shadow-xl"
                     key={`project-${i}`}
@@ -62,7 +67,7 @@ const Projects: NextPage = () => {
                       <span className="text-xs text-gray-400">Decimals</span>
                       <p className="text-sm">{project.decimals}</p>
                     </div>
-                  </Link>
+                  </button>
                 );
               })
             : null}

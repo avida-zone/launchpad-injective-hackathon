@@ -62,7 +62,8 @@ export class QueryService {
       response.map(async (r) => {
         const response = (await this.query.wasm.queryContractSmart(r.contract_address, { token_info: {} })) as TokenInfoResponse;
         const marketing = await this.query.wasm.queryContractSmart(r.contract_address, { marketing_info: {} });
-        return { ...r, ...response, ...marketing };
+        const issuer = (await this.query.wasm.queryContractSmart(r.contract_address, { trusted_issuers: {} })) as ArrayOfString;
+        return { ...r, ...response, ...marketing, issuer };
       })
     );
 

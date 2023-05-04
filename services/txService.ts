@@ -1,4 +1,4 @@
-import { OfflineDirectSigner } from "@cosmjs/proto-signing";
+import { Coin, OfflineDirectSigner } from "@cosmjs/proto-signing";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { CoinInfo, Endpoints, txClient } from "~/interfaces";
 import { QueryService } from "./queryService";
@@ -39,19 +39,16 @@ export class TxService extends QueryService {
     ]);
   }
 
-  async buyRgToken(controllerAddr: string, contractAddr: string, amount: string, issuer: string): Promise<void> {
-    const correctMintFee = "30000000000000000";
+  async buyRgToken(controllerAddr: string, contractAddr: string, amount: string, funds: Coin, issuer: string): Promise<void> {
     const nonce = await this.getNonce(contractAddr, this.userAddr);
     const proof = await this.generateProof(controllerAddr, this.userAddr, nonce, issuer);
     const mint_msg = {
       mint: {
-        amount: "3",
+        amount,
         proof,
         rg_token_addr: contractAddr,
       },
     };
-    await this.txClient.execute(this.userAddr, this.addresses.launchpadAddress, mint_msg, "auto", undefined, [
-      { denom: "inj", amount: correctMintFee },
-    ]);
+    await this.txClient.execute(this.userAddr, this.addresses.launchpadAddress, mint_msg, "auto", undefined, [funds]);
   }
 }
