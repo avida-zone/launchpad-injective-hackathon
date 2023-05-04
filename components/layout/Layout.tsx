@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import ControlModal from "../modals/ControlModal";
+import ControlModal from "../Modals/ControlModal";
 
 const inter = Inter({
   variable: "--font-inter",
