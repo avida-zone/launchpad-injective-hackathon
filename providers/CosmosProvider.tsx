@@ -3,12 +3,14 @@ import React, { PropsWithChildren, createContext, useEffect, useMemo, useState }
 import { TxService } from "~/services/txService";
 import { QueryService } from "~/services/queryService";
 import { CoinInfo } from "~/interfaces";
+import { ContractAddresses } from "~/interfaces/contracts";
 
 interface CosmosContextProps {
   connect: () => Promise<void>;
   address?: string;
   username?: string;
   defaultFee: CoinInfo;
+  addresses: ContractAddresses;
   queryService: QueryService;
   txService: TxService | null;
   disconnect: () => Promise<void>;
@@ -78,7 +80,9 @@ const CosmosProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [address]);
 
   return (
-    <CosmosContext.Provider value={{ connect, address, username, defaultFee, disconnect, queryService, txService } as CosmosContextProps}>
+    <CosmosContext.Provider
+      value={{ connect, address, username, defaultFee, disconnect, queryService, txService, addresses } as CosmosContextProps}
+    >
       {children}
     </CosmosContext.Provider>
   );

@@ -11,6 +11,7 @@ import {
 } from "@injectivelabs/sdk-ts";
 
 import { AccountDetails } from "@injectivelabs/sdk-ts/dist/cjs/types/auth";
+import { BigNumber, DEFAULT_GAS_LIMIT, DEFAULT_GAS_PRICE } from "@injectivelabs/utils";
 import { Endpoints } from "~/interfaces";
 
 export default class InjectiveClient {
@@ -38,6 +39,10 @@ export default class InjectiveClient {
       message,
       chainId: "injective-888",
       memo,
+      fee: {
+        amount: [{ amount: new BigNumber(DEFAULT_GAS_LIMIT * 1.5).times(DEFAULT_GAS_PRICE).toString(), denom: "inj" }],
+        gas: (DEFAULT_GAS_LIMIT * 1.5).toString(),
+      },
     });
 
     try {
@@ -64,6 +69,7 @@ export default class InjectiveClient {
       msg,
       funds: funds as { amount: string; denom: string }[],
     });
+
     await this.signAndBroadcast(senderAddress, message, memo);
   }
 

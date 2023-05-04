@@ -136,7 +136,7 @@ const Apply: NextPage = () => {
         <div className="w-full max-layout gap-4 flex-1 flex flex-col md:flex-row">
           <StepContainer currentStep={step} setStep={setStep} maxStep={maxStep} />
           <div className={clsx("min-h-full flex gap-4 flex-col w-full md:w-80", step + 1 === maxStep ? "hidden" : "")}>
-            {step === 1 ? (
+            {false ? (
               <AnimatePresence mode="wait">
                 <motion.div
                   key={step}

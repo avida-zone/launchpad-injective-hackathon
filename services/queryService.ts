@@ -13,6 +13,7 @@ import {
 import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import axios, { AxiosInstance } from "axios";
 import { ContractAddresses } from "~/interfaces/contracts";
+import { parseSubProofReqParam } from "~/utils/misc";
 
 export class QueryService {
   query: QueryClient & StakingExtension & BankExtension & TxExtension & DistributionExtension & WasmExtension;
@@ -37,5 +38,10 @@ export class QueryService {
   static async connect(rpcUrl: string, addresses: ContractAddresses): Promise<QueryService> {
     const tmClient = await this.getTmClient(rpcUrl);
     return new QueryService(tmClient, addresses);
+  }
+
+  async getIssuerRequestParams() {
+    const { data } = await axios.get("https://api-testnet.avida.zone/sub-proof-req-params/?issuer=gayadeed&issuer=identrust&issuer=infocert");
+    return data.map(parseSubProofReqParam);
   }
 }

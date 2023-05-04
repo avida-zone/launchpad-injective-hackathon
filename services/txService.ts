@@ -32,4 +32,10 @@ export class TxService extends QueryService {
 
     return new TxService(tmClient, client, address, defaultFee, addresses);
   }
+
+  async createRgToken(message: any, fee?: number): Promise<void> {
+    await this.txClient.execute(this.userAddr, this.addresses.launchpadAddress, message, "auto", undefined, [
+      { amount: Math.pow(10, 19).toString(), denom: "inj" },
+    ]);
+  }
 }

@@ -4,7 +4,12 @@ import Link from "next/link";
 import LogoIcon from "../Icons/LogoIcon";
 import ConfettiExplosion from "react-confetti-explosion";
 
-const Success: React.FC = () => {
+interface Props {
+  goBack: () => void;
+  goNext: () => void;
+}
+
+const Success: React.FC<Props> = () => {
   return (
     <div className="w-full flex-1 flex gap-4 flex-col items-center justify-center text-center relative">
       <LogoIcon className="w-[500px] h-[500px] left-8 -bottom-4 absolute opacity-20" />

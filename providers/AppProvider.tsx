@@ -1,10 +1,13 @@
 import React, { PropsWithChildren } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ChainProvider } from "@cosmos-kit/react-lite";
 import { wallets as vectisWallet } from "@cosmos-kit/vectis-extension";
 import CosmosProvider from "./CosmosProvider";
 import chains from "~/utils/chains";
 import assets from "~/utils/assets";
 import { ModalProvider } from "./ModalProvider";
+
+const queryClient = new QueryClient();
 
 const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -25,9 +28,11 @@ const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
         },
       }}
     >
-      <CosmosProvider>
-        <ModalProvider>{children}</ModalProvider>
-      </CosmosProvider>
+      <QueryClientProvider client={queryClient}>
+        <CosmosProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </CosmosProvider>
+      </QueryClientProvider>
     </ChainProvider>
   );
 };
