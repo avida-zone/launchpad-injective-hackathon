@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-
-const textSteps = ["Step 1: Define RG-Token", "Step 2: Define Proofs", "Step 3: Final Preview", "Application sent"];
+import { textSteps } from "~/utils/const";
 
 const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, currentStep }) => {
   return (

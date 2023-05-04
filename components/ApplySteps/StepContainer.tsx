@@ -18,28 +18,6 @@ interface Props {
   setStep: (step: number) => void;
   maxStep: number;
 }
-
-/*
-launch: {
-      label: "RG Token 1",
-      launch_type: launchtype_new,
-      msg: rg20_instant_msg,
-    },
-
-
-
-decimals: number,
-  initial_balances: []
-  marketing: {
-    logo: { url : string }
-    description: string
-  },
-  mint: { cap: string, minter: string},
-  name: string,
-  symbol:  string,
-trusted_issuers: string[]
-req_params ?
-*/
 export interface FormInputsRG20 {
   decimals: number;
   name: string;
@@ -70,9 +48,7 @@ const StepContainer: React.FC<Props> = ({ currentStep, setStep, maxStep }) => {
           </div>
         )}
         <div>
-          <div>
-            <Stepper maxStep={maxStep} currentStep={currentStep} />
-          </div>
+          <Stepper maxStep={maxStep} currentStep={currentStep} />
         </div>
         <AnimatePresence mode="wait">
           <motion.div

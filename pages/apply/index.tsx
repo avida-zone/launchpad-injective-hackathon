@@ -5,114 +5,7 @@ import Head from "next/head";
 import { useState } from "react";
 import Accordion from "~/components/Acordion";
 import StepContainer from "~/components/ApplySteps/StepContainer";
-
-const steps = [
-  [
-    {
-      title: "Basic Settings",
-      content: (
-        <>
-          <p>
-            Use the basic settings section to define general token parameters such as: the Token Name and Symbol, which are important for DEX,
-            and the Initial Supply (plus decimals to be counted)
-          </p>
-        </>
-      ),
-    },
-    {
-      title: "RG-Token Configuration",
-      content: (
-        <div>
-          <p>
-            In this section you need to specify the Token Prospectus URL, where investores may retrieve all the needed infos, you also need to
-            specify if a limit to the number of token per address applies
-          </p>
-        </div>
-      ),
-    },
-  ],
-  [
-    {
-      title: "Proof Requests",
-      content: (
-        <>
-          <p>
-            In this section you can specify the compliance requirements of the users who will handle your RG Token. Select the credential
-            schemes that represent these requirements and, for each of them, decide which il attributes must be provided by the user by means of
-            a la derived zero-knowledge proof
-          </p>
-          <p>
-            Beside the general Token parameters, you should define if the Token Contract must support Burn and Mint of tokens, if the contract
-            can be paused and if address blacklisting must be supported
-          </p>
-        </>
-      ),
-    },
-    {
-      title: "Issuers",
-      content: (
-        <>
-          <p>
-            Based on the credential schemas you selected, the list of issuers able to issue such credentials will automatically update. Once you
-            have decided which credentials you need for your RG token, select from the list of compatible issuers those you consider trusted
-          </p>
-        </>
-      ),
-    },
-  ],
-  [
-    {
-      title: "Basic Settings",
-      content: (
-        <>
-          <p>
-            Use the basic settings section to define general token parameters such as: the Token Name and Symbol, which are important for DEX,
-            and the Initial Supply (plus decimals to be counted)
-          </p>
-        </>
-      ),
-    },
-    {
-      title: "RG-Token Configuration",
-      content: (
-        <div>
-          <p>
-            In this section you need to specify the Token Prospectus URL, where investores may retrieve all the needed infos, you also need to
-            specify if a limit to the number of token per address applies
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "Proof Requests",
-      content: (
-        <>
-          <p>
-            In this section you can specify the compliance requirements of the users who will handle your RG Token. Select the credential
-            schemes that represent these requirements and, for each of them, decide which il attributes must be provided by the user by means of
-            a la derived zero-knowledge proof
-          </p>
-          <p>
-            Beside the general Token parameters, you should define if the Token Contract must support Burn and Mint of tokens, if the contract
-            can be paused and if address blacklisting must be supported
-          </p>
-        </>
-      ),
-    },
-    {
-      title: "Issuers",
-      content: (
-        <>
-          <p>
-            Based on the credential schemas you selected, the list of issuers able to issue such credentials will automatically update. Once you
-            have decided which credentials you need for your RG token, select from the list of compatible issuers those you consider trusted
-          </p>
-        </>
-      ),
-    },
-  ],
-  [],
-];
+import { stepsHelp } from "~/utils/const";
 
 const data = {
   tokenName: "Cookie Monster",
@@ -177,7 +70,7 @@ const Apply: NextPage = () => {
             )}
             {}
             <div className="w-full">
-              <Accordion items={steps[step]} />
+              <Accordion items={stepsHelp[step]} />
             </div>
           </div>
         </div>
