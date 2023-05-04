@@ -23,7 +23,7 @@ const Assets: NextPage = () => {
     })();
   }, [queryService, address]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !balances.nativeBalances) return <Spinner />;
 
   return (
     <>
@@ -55,7 +55,12 @@ const Assets: NextPage = () => {
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
-                      <Button className="!text-sm !px-2 !py-1 h-fit">Transform</Button>
+                      {asset.denom === "inj" ? null : <Button className="!text-sm !px-2 !py-1 h-fit">Transform</Button>}
+                      {asset.denom === "inj" ? null : (
+                        <Button className="!text-sm !px-2 !py-1 h-fit" variant="secondary">
+                          Adaptor
+                        </Button>
+                      )}
                     </div>
                   </div>
                 );
@@ -83,6 +88,9 @@ const Assets: NextPage = () => {
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         {asset.options.launch_type.transform ? <Button className="!text-sm !px-2 !py-1 h-fit">Transform</Button> : null}
+                        <Button className="!text-sm !px-2 !py-1 h-fit" variant="secondary">
+                          Adaptor
+                        </Button>
                       </div>
                     </div>
                   );
