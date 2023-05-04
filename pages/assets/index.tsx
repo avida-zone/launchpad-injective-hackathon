@@ -23,6 +23,8 @@ const Assets: NextPage = () => {
     })();
   }, [queryService, address]);
 
+  if (isLoading) return <Spinner />;
+
   return (
     <>
       <Head>
@@ -34,7 +36,7 @@ const Assets: NextPage = () => {
           <div className="flex flex-col gap-4">
             <div className="flex flex-1 flex-col gap-4">
               <p className="text-sm text-gray-400">Native Tokens</p>
-              {balances?.nativeBalances.map((asset, i: number) => {
+              {balances?.nativeBalances?.map((asset: any, i: number) => {
                 const token = asset.denom === "inj" ? defaultFee : (asset as unknown as CoinInfo);
                 return (
                   <div
@@ -54,25 +56,21 @@ const Assets: NextPage = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <Button className="!text-sm !px-2 !py-1 h-fit">Transform</Button>
-                      <Button className="!text-sm !px-2 !py-1 h-fit" variant="secondary">
-                        Action 2
-                      </Button>
                     </div>
                   </div>
                 );
               })}
             </div>
             <div>
-              <p className="text-sm text-gray-400">RG-Tokens</p>
-              {balances.rgNewTokensBalance &&
-                balances.rgTransformTokensBalance &&
-                [...balances.rgNewTokensBalance, ...balances.rgTransformTokensBalance]?.map((asset, i) => {
+              <p className="text-sm text-gray-400 mb-4">RG-Tokens</p>
+              <div className="flex flex-1 flex-col gap-4">
+                {[...balances.rgNewTokensBalance, ...balances.rgTransformTokensBalance]?.map((asset, i) => {
                   return (
                     <div
                       key={`asset-${i}-${asset.symbol}`}
                       className="bg-white p-3 rounded-lg grid grid-cols-[_4rem,2fr,1fr,1fr] gap-2 items-center"
                     >
-                      <img src={asset.imgUrl} alt={asset.symbol} className="w-16 h-16 rounded-full object-cover " />
+                      <div className="w-12 h-12 rounded-full object-cover bg-java-green-100" />
                       <div>
                         <p className="font-bold">{asset.tokenName}</p>
                         <p className="text-sm text-gray-500">{asset.symbol}</p>
@@ -80,24 +78,16 @@ const Assets: NextPage = () => {
                       <div>
                         <span className="text-sm text-gray-400">Available</span>
                         <p>
-                          {0.5} ${asset.denom}
+                          {asset.balance.balance} ${asset.symbol}
                         </p>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        <Button className="!text-sm !px-2 !py-1 h-fit">Transform</Button>
-                        <Button className="!text-sm !px-2 !py-1 h-fit" variant="secondary">
-                          Action 2
-                        </Button>
-                        <Button variant="tertiary" className="!text-sm !px-2 !py-1 h-fit">
-                          Buy assets
-                        </Button>
-                        <Button variant="cuaternary" className="!text-sm !px-2 !py-1 h-fit">
-                          Action 2
-                        </Button>
+                        {asset.options.launch_type.transform ? <Button className="!text-sm !px-2 !py-1 h-fit">Transform</Button> : null}
                       </div>
                     </div>
                   );
                 })}
+              </div>
             </div>
           </div>
         ) : (

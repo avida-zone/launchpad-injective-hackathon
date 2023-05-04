@@ -55,7 +55,7 @@ export class QueryService {
 
   async getNewProjects(type: "new" | "transform") {
     const response = (await this.query.wasm.queryContractSmart(this.addresses.launchpadAddress, {
-      registered_contracts: { contract_type: "new", limit: 10 },
+      registered_contracts: { contract_type: type, limit: 10 },
     })) as ContractResponse[];
 
     const tokens = await Promise.all(
@@ -67,7 +67,6 @@ export class QueryService {
       })
     );
 
-    console.log(tokens);
     return tokens;
   }
 
@@ -118,10 +117,11 @@ export class QueryService {
         };
       })
     );
+
     return {
       nativeBalances: nativeBalances,
-      rgNewTokensBalance: rgNewTokensBalance.filter((p) => Number(p.balance.amount)),
-      rgTransformTokensBalance: rgTransformTokensBalance.filter((p) => Number(p.balance.amount)),
+      rgNewTokensBalance: rgNewTokensBalance.filter((p) => Number(p.balance.balance)),
+      rgTransformTokensBalance: rgTransformTokensBalance.filter((p) => Number(p.balance.balance)),
     };
   }
 }
