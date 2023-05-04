@@ -14,7 +14,7 @@ import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import axios, { AxiosInstance } from "axios";
 import { ContractAddresses } from "~/interfaces/contracts";
 import { ContractResponse, WProof } from "~/interfaces/launchpad";
-import { TokenInfoResponse } from "~/interfaces/rgcw20";
+import { ArrayOfString, MarketingInfoResponse, TokenInfoResponse } from "~/interfaces/rgcw20";
 import { parseProof, parseSubProofReqParam } from "~/utils/misc";
 
 export class QueryService {
@@ -72,15 +72,14 @@ export class QueryService {
 
   async getProject(contractAddress: string) {
     const response = (await this.query.wasm.queryContractSmart(contractAddress, { token_info: {} })) as TokenInfoResponse;
-    const marketing = await this.query.wasm.queryContractSmart(contractAddress, { marketing_info: {} });
-    const issuer = await this.query.wasm.queryContractSmart(contractAddress, { trusted_issuers: {} });
+    const marketing = (await this.query.wasm.queryContractSmart(contractAddress, { marketing_info: {} })) as MarketingInfoResponse;
+    const issuer = (await this.query.wasm.queryContractSmart(contractAddress, { trusted_issuers: {} })) as ArrayOfString;
     return { ...response, ...marketing, issuer };
   }
 
-  async generateProof(controller_addr: string, wallet_addr: string, nonce: string): Promise<WProof> {
+  async generateProof(controller_addr: string, wallet_addr: string, nonce: string, issuer: string): Promise<WProof> {
     const { data } = await axios.post(
-      `https://api-testnet.avida.zone/generate-proof/${controller_addr}/${wallet_addr}/${nonce}/?issuer=gayadeed&issuer=identrust&issuer=infocert`,
-      { responseType: "json" }
+      `https://api-testnet.avida.zone/generate-proof/${controller_addr}/${wallet_addr}/${nonce}/?issuer=${issuer}`
     );
 
     return parseProof(data);
@@ -88,7 +87,7 @@ export class QueryService {
 
   async getAllBalances(address: string) {
     const nativeBalances = await this.query.bank.allBalances(address);
-    const nativesWithInfo = await Promise.all(
+    /*  const nativesWithInfo = await Promise.all(
       nativeBalances.map(async (t) => {
         if (t.denom === "inj") return t;
         const metadata = await this.query.bank.denomMetadata(t.denom);
@@ -97,7 +96,7 @@ export class QueryService {
           ...metadata,
         };
       })
-    );
+    ); */
     const newRgTokens = await this.getNewProjects("new");
     const transformRgTokens = await this.getNewProjects("transform");
     const rgNewTokensBalance = await Promise.all(
@@ -119,7 +118,7 @@ export class QueryService {
       })
     );
     return {
-      nativeBalances: nativesWithInfo,
+      nativeBalances: nativeBalances,
       rgNewTokensBalance: rgNewTokensBalance.filter((p) => Number(p.balance.amount)),
       rgTransformTokensBalance: rgTransformTokensBalance.filter((p) => Number(p.balance.amount)),
     };

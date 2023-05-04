@@ -39,13 +39,13 @@ export class TxService extends QueryService {
     ]);
   }
 
-  async buyRgToken(controllerAddr: string, contractAddr: string, amount: string): Promise<void> {
-    const correctMintFee = "300000000000000000";
+  async buyRgToken(controllerAddr: string, contractAddr: string, amount: string, issuer: string): Promise<void> {
+    const correctMintFee = "30000000000000000";
     const nonce = await this.getNonce(contractAddr, this.userAddr);
-    const proof = await this.generateProof(controllerAddr, this.userAddr, nonce);
+    const proof = await this.generateProof(controllerAddr, this.userAddr, nonce, issuer);
     const mint_msg = {
       mint: {
-        amount,
+        amount: "3",
         proof,
         rg_token_addr: contractAddr,
       },

@@ -40,8 +40,8 @@ export default class InjectiveClient {
       chainId: "injective-888",
       memo,
       fee: {
-        amount: [{ amount: new BigNumber(DEFAULT_GAS_LIMIT * 2).times(DEFAULT_GAS_PRICE).toString(), denom: "inj" }],
-        gas: (DEFAULT_GAS_LIMIT * 2).toString(),
+        amount: [{ amount: new BigNumber(DEFAULT_GAS_LIMIT * 3).times(DEFAULT_GAS_PRICE).toString(), denom: "inj" }],
+        gas: (DEFAULT_GAS_LIMIT * 3).toString(),
       },
     });
 

@@ -5,7 +5,6 @@ import Button from "../Buttons/Button";
 import { useCosmos } from "~/providers/CosmosProvider";
 import { useFormContext } from "react-hook-form";
 import { FormInputsRG20 } from "./StepContainer";
-import useRest from "~/hooks/useRest";
 
 const issuers = ["Gayadeed SpA", "Identrust LLC", "InfoCert SpA"];
 const schemas = ["Identify Verification (Physical person)", "AML Checks", "Corporative verification"];
@@ -17,10 +16,21 @@ interface Props {
 
 const Step2: React.FC<Props> = ({ goBack, goNext }) => {
   const [selectProof, setSelectProof] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [proofs, setProofs] = useState<any[]>([]);
   const { queryService } = useCosmos();
 
-  const { data: proofs } = useRest(() => queryService.getIssuerRequestParams());
   const { setValue } = useFormContext<FormInputsRG20>();
+
+  useEffect(() => {
+    (async () => {
+      if (!queryService) return;
+      setIsLoading(true);
+      const response = await queryService.getIssuerRequestParams();
+      setProofs(response);
+      setIsLoading(false);
+    })();
+  }, [queryService]);
 
   useEffect(() => {
     if (!proofs) return;

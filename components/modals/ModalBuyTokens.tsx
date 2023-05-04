@@ -7,6 +7,7 @@ import { useCosmos } from "~/providers/CosmosProvider";
 
 interface Props {
   contractAddress: string;
+  issuer: string;
 }
 
 interface FormInputs {
@@ -14,14 +15,14 @@ interface FormInputs {
   amount: string;
 }
 
-const ModalBuyTokens: React.FC<Props> = ({ contractAddress }) => {
+const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer }) => {
   const { watch, setValue, handleSubmit } = useForm<FormInputs>();
   const { txService } = useCosmos();
   const { toast } = useToast();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async ({ controllerAddress, amount }) => {
     if (!txService) return;
-    await toast.promise(txService.buyRgToken(data.controllerAddress, contractAddress, data.amount));
+    await toast.promise(txService.buyRgToken(controllerAddress, contractAddress, amount, issuer));
   });
 
   return (
