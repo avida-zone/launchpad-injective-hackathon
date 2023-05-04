@@ -5,11 +5,14 @@ import Button from "~/components/Buttons/Button";
 import Spinner from "~/components/Spinner";
 import ConnectWallet from "~/components/layout/ConnectWallet";
 import { CoinInfo } from "~/interfaces";
+import ModalTypes from "~/interfaces/ModalTypes";
 import { useCosmos } from "~/providers/CosmosProvider";
+import { useModal } from "~/providers/ModalProvider";
 import { convertMicroDenomToDenom } from "~/utils/conversation";
 
 const Assets: NextPage = () => {
   const { isWalletConnected, queryService, address, defaultFee } = useCosmos();
+  const { showModal } = useModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [balances, setBalances] = useState<any | null>({});
 
@@ -87,7 +90,22 @@ const Assets: NextPage = () => {
                         </p>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        {asset.options.launch_type.transform ? <Button className="!text-sm !px-2 !py-1 h-fit">Transform</Button> : null}
+                        {asset.options.launch_type.transform ? (
+                          <Button
+                            className="!text-sm !px-2 !py-1 h-fit"
+                            onClick={() => {
+                              showModal(ModalTypes.buyTickets, {
+                                contractAddress: asset.contract_address,
+                                tokenSymbol: asset.symbol,
+                                exponent: asset.decimals,
+                                issuer: asset.issuer,
+                                type: "revert",
+                              });
+                            }}
+                          >
+                            Transform
+                          </Button>
+                        ) : null}
                         <Button className="!text-sm !px-2 !py-1 h-fit" variant="secondary">
                           Adaptor
                         </Button>

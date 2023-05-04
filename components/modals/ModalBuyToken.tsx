@@ -12,7 +12,7 @@ interface Props {
   issuer: string;
   tokenSymbol: string;
   exponent: number;
-  type: "new" | "transform";
+  type: "new" | "transform" | "revert";
   price: { amount: string; denom: string };
 }
 
@@ -29,13 +29,17 @@ const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer, tokenSymbol,
 
   const isNew = type === "new";
 
+  const text = isNew ? "Buy Tokens" : type === "transform" ? "Transform Tokens" : "Revert Tokens";
+
   const onSubmit = handleSubmit(async ({ controllerAddress, amount }) => {
     if (!txService) return;
     if (isNew) {
       const funds = BigNumber(price.amount).multipliedBy(amount).toFixed();
       await toast.promise(txService.buyRgToken(controllerAddress, contractAddress, amount, { amount: funds, denom: price.denom }, issuer));
-    } else {
+    } else if (type === "transform") {
       await toast.promise(txService.transformIntoRgToken(controllerAddress, contractAddress, { amount, denom: "inj" }, issuer));
+    } else {
+      await toast.promise(txService.transformIntoNativeToken(controllerAddress, contractAddress, amount, issuer));
     }
 
     hideModal();
@@ -43,7 +47,7 @@ const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer, tokenSymbol,
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="text-xl">{isNew ? "Buy Tokens" : "Transform Tokens"}</h2>
+      <h2 className="text-xl">{text}</h2>
       <p>
         Its necessary to have a valid credential in your wallet <br />
         <span>The contract will check the validaty of the credential before to mint the token</span>
@@ -56,9 +60,13 @@ const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer, tokenSymbol,
         value={watch("controllerAddress")}
         onChange={(e) => setValue("controllerAddress", e.target.value)}
       />
-      <Input placeholder="Amount to buy" value={watch("amount")} onChange={(e) => setValue("amount", e.target.value)} />
+      <Input
+        placeholder={isNew ? "Amount to Buy" : type === "revert" ? "Amount to Revert" : "Amount to Trasnsform"}
+        value={watch("amount")}
+        onChange={(e) => setValue("amount", e.target.value)}
+      />
 
-      <Button onClick={onSubmit}>{isNew ? "Buy Tokens" : "Transform Tokens"}</Button>
+      <Button onClick={onSubmit}>{text}</Button>
     </div>
   );
 };

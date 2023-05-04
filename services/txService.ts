@@ -52,6 +52,18 @@ export class TxService extends QueryService {
     await this.txClient.execute(this.userAddr, this.addresses.launchpadAddress, transform_msg, "auto", undefined, [funds]);
   }
 
+  async transformIntoNativeToken(controllerAddr: string, contractAddr: string, amount: string, issuer: string): Promise<void> {
+    const nonce = await this.getNonce(contractAddr, this.userAddr);
+    const proof = await this.generateProof(controllerAddr, this.userAddr, nonce, issuer);
+    const revert_msg = {
+      burn: {
+        amount,
+        proof,
+      },
+    };
+    await this.txClient.execute(this.userAddr, contractAddr, revert_msg, "auto", undefined, []);
+  }
+
   async buyRgToken(controllerAddr: string, contractAddr: string, amount: string, funds: Coin, issuer: string): Promise<void> {
     const nonce = await this.getNonce(contractAddr, this.userAddr);
     const proof = await this.generateProof(controllerAddr, this.userAddr, nonce, issuer);
