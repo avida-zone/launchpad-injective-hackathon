@@ -55,7 +55,8 @@ const projects = [
     denom: "INJ",
     issuer: "Gayadeed SpA",
     proof: "Identify Verification (Physical person)",
-    imgUrl: "https://cdn.pixabay.com/photo/2015/09/04/18/55/yoda-922520_960_720.png",
+    imgUrl:
+      "https://cdn.discordapp.com/attachments/1051299222227533901/1103655770295382056/Kyaris_logo_token_for_baby_yoda_b315e592-b778-4c56-baf1-a58a5ca89626.png",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper eget purus a faucibus. Nunc facilisis massa sodales, viverra mauris ut, cursus nisi. Maecenas eget interdum mauris, et luctus leo. Sed nec aliquam erat. Mauris semper nibh eget ultrices dignissim. Fusce elementum eros dictum, ullamcorper velit id, feugiat neque. Aliquam vehicula cursus lorem sed aliquam. Mauris cursus massa ut semper aliquam. Sed et bibendum elit. Curabitur blandit, leo quis commodo rhoncus, diam leo tincidunt odio, a posuere diam ex ac enim. Donec non vehicula neque. Morbi vehicula at sapien non pretium. Proin venenatis ipsum rhoncus felis fringilla, nec placerat neque bibendum. Suspendisse potenti.",
   },
@@ -90,7 +91,7 @@ const projects = [
 ];
 
 const Assets: NextPage = () => {
-  const walletConnected = false;
+  const walletConnected = true;
   return (
     <>
       <Head>

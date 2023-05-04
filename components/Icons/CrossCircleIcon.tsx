@@ -9,14 +9,10 @@ const CrossCircleIcon: React.FC<React.SVGAttributes<HTMLOrSVGElement>> = ({ ...p
       fill="currentColor"
       stroke="currentColor"
       strokeWidth="0"
-      viewBox="0 0 24 24"
+      viewBox="0 0 16 16"
       {...props}
     >
-      <path fill="none" stroke="none" d="M0 0h24v24H0z"></path>
-      <path
-        stroke="none"
-        d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
-      ></path>
+      <path d="M15.854 12.854s0 0 0 0L11 8l4.854-4.854s0 0 0 0a.503.503 0 000-.707L13.561.146a.499.499 0 00-.707 0s0 0 0 0L8 5 3.146.146s0 0 0 0a.5.5 0 00-.707 0L.146 2.439a.499.499 0 000 .707s0 0 0 0L5 8 .146 12.854s0 0 0 0a.5.5 0 000 .707l2.293 2.293a.499.499 0 00.707 0s0 0 0 0L8 11l4.854 4.854s0 0 0 0a.5.5 0 00.707 0l2.293-2.293a.499.499 0 000-.707z"></path>
     </svg>
   );
 };
