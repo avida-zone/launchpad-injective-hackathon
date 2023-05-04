@@ -21,6 +21,8 @@ const Project: NextPage = () => {
     setTokenInfo(JSON.parse(project as string));
   }, []);
 
+  const isNew = !!tokenInfo?.options?.launch_type?.new;
+
   if (!tokenInfo) {
     return (
       <div className="flex items-center justify-center relative w-full">
@@ -69,7 +71,7 @@ const Project: NextPage = () => {
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
                 <div>
                   <span className="text-sm text-gray-400">Max Cap</span>
-                  <p>{tokenInfo?.options.launch_type.new.cap}</p>
+                  <p>{tokenInfo?.options.launch_type?.new?.cap}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-400">Decimals</span>
@@ -100,11 +102,12 @@ const Project: NextPage = () => {
                     tokenSymbol: tokenInfo.symbol,
                     exponent: tokenInfo.decimals,
                     issuer: tokenInfo.issuer,
-                    price: tokenInfo.options.launch_type.new.price[0],
+                    price: tokenInfo.options.launch_type?.new?.price?.[0],
+                    type: tokenInfo.options.launch_type.new ? "new" : "transform",
                   })
                 }
               >
-                Buy Tokens
+                {isNew ? "Buy Tickets" : "Transform Tokens"}
               </Button>
             </div>
           </div>

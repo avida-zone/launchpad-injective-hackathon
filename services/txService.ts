@@ -39,6 +39,19 @@ export class TxService extends QueryService {
     ]);
   }
 
+  async transformIntoRgToken(controllerAddr: string, contractAddr: string, funds: Coin, issuer: string): Promise<void> {
+    const nonce = await this.getNonce(contractAddr, this.userAddr);
+    const proof = await this.generateProof(controllerAddr, this.userAddr, nonce, issuer);
+
+    const transform_msg = {
+      transform: {
+        proof,
+        rg_token_addr: contractAddr,
+      },
+    };
+    await this.txClient.execute(this.userAddr, this.addresses.launchpadAddress, transform_msg, "auto", undefined, [funds]);
+  }
+
   async buyRgToken(controllerAddr: string, contractAddr: string, amount: string, funds: Coin, issuer: string): Promise<void> {
     const nonce = await this.getNonce(contractAddr, this.userAddr);
     const proof = await this.generateProof(controllerAddr, this.userAddr, nonce, issuer);

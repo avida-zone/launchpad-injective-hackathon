@@ -12,6 +12,7 @@ interface Props {
   issuer: string;
   tokenSymbol: string;
   exponent: number;
+  type: "new" | "transform";
   price: { amount: string; denom: string };
 }
 
@@ -20,23 +21,29 @@ interface FormInputs {
   amount: string;
 }
 
-const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer, tokenSymbol, exponent, price }) => {
+const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer, tokenSymbol, exponent, price, type }) => {
   const { watch, setValue, handleSubmit } = useForm<FormInputs>();
   const { hideModal } = useModal();
   const { txService } = useCosmos();
   const { toast } = useToast();
 
+  const isNew = type === "new";
+
   const onSubmit = handleSubmit(async ({ controllerAddress, amount }) => {
     if (!txService) return;
+    if (isNew) {
+      const funds = BigNumber(price.amount).multipliedBy(amount).toFixed();
+      await toast.promise(txService.buyRgToken(controllerAddress, contractAddress, amount, { amount: funds, denom: price.denom }, issuer));
+    } else {
+      await toast.promise(txService.transformIntoRgToken(controllerAddress, contractAddress, { amount, denom: "inj" }, issuer));
+    }
 
-    const funds = BigNumber(price.amount).multipliedBy(amount).toFixed();
-    await toast.promise(txService.buyRgToken(controllerAddress, contractAddress, amount, { amount: funds, denom: price.denom }, issuer));
     hideModal();
   });
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="text-xl">Buy assets</h2>
+      <h2 className="text-xl">{isNew ? "Buy Tokens" : "Transform Tokens"}</h2>
       <p>
         Its necessary to have a valid credential in your wallet <br />
         <span>The contract will check the validaty of the credential before to mint the token</span>
@@ -51,7 +58,7 @@ const ModalBuyTokens: React.FC<Props> = ({ contractAddress, issuer, tokenSymbol,
       />
       <Input placeholder="Amount to buy" value={watch("amount")} onChange={(e) => setValue("amount", e.target.value)} />
 
-      <Button onClick={onSubmit}>Buy Token</Button>
+      <Button onClick={onSubmit}>{isNew ? "Buy Tokens" : "Transform Tokens"}</Button>
     </div>
   );
 };
