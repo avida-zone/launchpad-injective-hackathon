@@ -13,6 +13,8 @@ import {
 import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import axios, { AxiosInstance } from "axios";
 import { ContractAddresses } from "~/interfaces/contracts";
+import { ContractResponse } from "~/interfaces/launchpad";
+import { TokenInfoResponse } from "~/interfaces/rgcw20";
 import { parseSubProofReqParam } from "~/utils/misc";
 
 export class QueryService {
@@ -43,5 +45,22 @@ export class QueryService {
   async getIssuerRequestParams() {
     const { data } = await axios.get("https://api-testnet.avida.zone/sub-proof-req-params/?issuer=gayadeed&issuer=identrust&issuer=infocert");
     return data.map(parseSubProofReqParam);
+  }
+
+  async getNewProjects(type: "new" | "transform") {
+    const response = (await this.query.wasm.queryContractSmart(this.addresses.launchpadAddress, {
+      registered_contracts: { contract_type: "new", limit: 10 },
+    })) as ContractResponse[];
+
+    const tokens = await Promise.all(
+      response.map(async (r) => {
+        const response = (await this.query.wasm.queryContractSmart(r.contract_address, { token_info: {} })) as TokenInfoResponse;
+        const marketing = await this.query.wasm.queryContractSmart(r.contract_address, { marketing_info: {} });
+        return { ...r, ...response, ...marketing };
+      })
+    );
+
+    console.log(tokens);
+    return tokens;
   }
 }
