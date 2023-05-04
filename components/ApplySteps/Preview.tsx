@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { FormInputsRG20 } from "./StepContainer";
 import { useCosmos } from "~/providers/CosmosProvider";
 import { useToast } from "~/hooks/useToast";
+import { BigNumber } from "@injectivelabs/utils";
 
 interface Props {
   goBack: () => void;
@@ -45,7 +46,7 @@ const Preview: React.FC<Props> = ({ goBack, goNext }) => {
       : {
           label: inputs.name,
           launch_type: {
-            new: { cap: inputs.cap, price: [{ amount: "10000000000000000", denom: "inj" }] },
+            new: { cap: inputs.cap, price: [{ amount: BigNumber(Math.pow(10, 18)).multipliedBy(inputs.price).toFixed(), denom: "inj" }] },
           },
           msg: rg20msg,
         };

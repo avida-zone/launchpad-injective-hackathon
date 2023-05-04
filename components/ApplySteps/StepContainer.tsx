@@ -22,6 +22,7 @@ export interface FormInputsRG20 {
   decimals: number;
   name: string;
   imgUrl: string;
+  price: string;
   trusted_issuers: string;
   cap: string;
   description: string;

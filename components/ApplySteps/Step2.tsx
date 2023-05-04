@@ -81,7 +81,7 @@ const Step2: React.FC<Props> = ({ goBack, goNext }) => {
         max-h-[26.8rem] min-h-[15rem] overflow-y-scroll scrollbar-thin scrollbar-thumb-kashmir-blue-300 hover:scrollbar-thumb-kashmir-blue-400
         scrollbar-track-transparent scrollbar-thumb-rounded-full grid grid-cols-2 gap-2"
           >
-            {proofs?.[selectProof].credential_schema?.attrs?.map((e: string, i: number) => {
+            {proofs?.[selectProof]?.credential_schema?.attrs?.map((e: string, i: number) => {
               return (
                 <div className="p-2 bg-white text-xs rounded-lg h-fit" key={`attributes-${i}`}>
                   {e}

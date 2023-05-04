@@ -24,6 +24,12 @@ const Step1: React.FC<Props> = ({ goBack, goNext }) => {
         <Input label="Symbol" container="col-span-1" value={watch("symbol")} onChange={(e) => setValue("symbol", e.target.value)} />
         <Input label="Decimals" container="col-span-1" value={watch("decimals")} onChange={(e) => setValue("decimals", +e.target.value)} />
         <Input label="Logo/Image url" container="col-span-2" value={watch("imgUrl")} onChange={(e) => setValue("imgUrl", e.target.value)} />
+        <Input
+          label={`Price per Token (INJ)`}
+          container="col-span-2"
+          value={watch("price")}
+          onChange={(e) => setValue("price", e.target.value)}
+        />
         <TextArea
           label="Description"
           container="col-span-2 lg:col-span-4"
