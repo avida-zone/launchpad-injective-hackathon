@@ -20,7 +20,7 @@ const Projects: NextPage = () => {
           {projects?.map((project, i) => {
             return (
               <Link
-                href={`/project/${project.symbol}`}
+                href={`/projects/${project.contract_address}`}
                 className="bg-gradient-to-b from-java-green-600 via-white to-white rounded-lg px-3 py-4 md:4 gap-4 grid grid-cols-3 hover:from-kashmir-blue-500
                 transition-all hover:via-white hover:to-white hover:scale-105 hover:shadow-xl"
                 key={`project-${i}`}

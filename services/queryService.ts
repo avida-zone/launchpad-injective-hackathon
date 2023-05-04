@@ -63,4 +63,11 @@ export class QueryService {
     console.log(tokens);
     return tokens;
   }
+
+  async getProject(contractAddress: string) {
+    const response = (await this.query.wasm.queryContractSmart(contractAddress, { token_info: {} })) as TokenInfoResponse;
+    const marketing = await this.query.wasm.queryContractSmart(contractAddress, { marketing_info: {} });
+    const issuer = await this.query.wasm.queryContractSmart(contractAddress, { trusted_issuers: {} });
+    return { ...response, ...marketing, issuer };
+  }
 }
