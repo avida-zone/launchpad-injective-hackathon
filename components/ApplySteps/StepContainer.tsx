@@ -8,6 +8,8 @@ import SimpleButton from "../Buttons/Button";
 import Stepper from "./Stepper";
 import Preview from "./Preview";
 import { FormProvider, useForm } from "react-hook-form";
+import ConnectWallet from "../layout/ConnectWallet";
+import { useCosmos } from "~/providers/CosmosProvider";
 
 const steps = [Step1, Step2, Preview, Success];
 
@@ -17,7 +19,7 @@ interface Props {
   maxStep: number;
 }
 
-/* 
+/*
 launch: {
       label: "RG Token 1",
       launch_type: launchtype_new,
@@ -51,6 +53,7 @@ export interface FormInputsRG20 {
 }
 
 const StepContainer: React.FC<Props> = ({ currentStep, setStep, maxStep }) => {
+  const { isWalletConnected } = useCosmos();
   const goBack = () => setStep(currentStep === 0 ? 0 : currentStep - 1);
   const goNext = () => setStep(currentStep === maxStep ? maxStep : currentStep + 1);
 
@@ -59,7 +62,13 @@ const StepContainer: React.FC<Props> = ({ currentStep, setStep, maxStep }) => {
   const methods = useForm<FormInputsRG20>();
   return (
     <FormProvider {...methods}>
-      <div className="flex flex-col bg-white flex-1 p-4 rounded-lg gap-8 snap-start overflow-hidden">
+      <div className="flex flex-col bg-white flex-1 p-4 rounded-lg gap-8 snap-start overflow-hidden relative">
+        {!isWalletConnected && (
+          <div className="backdrop-blur w-full h-full absolute z-20 top-0 left-0 rounded-lg flex items-center justify-center flex-col gap-4">
+            <p>Please connect wallet to continue</p>
+            <ConnectWallet />
+          </div>
+        )}
         <div>
           <div>
             <Stepper maxStep={maxStep} currentStep={currentStep} />

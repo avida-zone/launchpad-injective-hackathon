@@ -8,12 +8,13 @@ import Link from "next/link";
 import useMediaQuery from "~/hooks/useMediaQuery";
 import Hamburguer from "./Hamburguer";
 import { useCosmos } from "~/providers/CosmosProvider";
+import ConnectWallet from "./ConnectWallet";
 
 const Navbar: React.FC = () => {
   const { pathname } = useRouter();
-  const { connect, username } = useCosmos();
   const isLg = useMediaQuery("lg");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <>
       {!isLg ? (
@@ -31,9 +32,7 @@ const Navbar: React.FC = () => {
               Projects
             </Link>
           </div>
-          <Button variant="tertiary" scale="lg">
-            Connect wallet
-          </Button>
+          <ConnectWallet />
         </div>
       ) : (
         ""
@@ -61,13 +60,7 @@ const Navbar: React.FC = () => {
           )}
           {isLg && (
             <div className={clsx(pathname === "/" ? "hidden" : "")}>
-              {username ? (
-                <div>{username}</div>
-              ) : (
-                <Button variant="tertiary" onClick={() => [connect(), console.log("test")]}>
-                  Connect wallet
-                </Button>
-              )}
+              <ConnectWallet />
             </div>
           )}
           {!isLg && (

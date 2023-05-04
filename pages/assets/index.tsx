@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useQuery } from "react-query";
 import Button from "~/components/Buttons/Button";
+import ConnectWallet from "~/components/layout/ConnectWallet";
 import { useCosmos } from "~/providers/CosmosProvider";
 
 const projects = [
@@ -141,7 +142,7 @@ const Assets: NextPage = () => {
         ) : (
           <div className="flex-1 flex items-center justify-center flex-col gap-8 backdrop-blur-3xl border border-gray-100 rounded-lg">
             <p>Please connect wallet to continue</p>
-            <Button>Connect wallet</Button>
+            <ConnectWallet />
           </div>
         )}
       </div>

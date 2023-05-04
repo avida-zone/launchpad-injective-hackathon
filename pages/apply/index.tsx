@@ -133,7 +133,7 @@ const Apply: NextPage = () => {
         <title>Avipad</title>
       </Head>
       <div className="w-full min-h-screen pt-28 pb-12 flex gap-20 flex-col items-center justify-center py-8 px-4">
-        <div className="w-full max-layout gap-4 flex-1 flex flex-col md:flex-row">
+        <div className="w-full max-layout gap-4 flex-1 flex flex-col md:flex-row relative">
           <StepContainer currentStep={step} setStep={setStep} maxStep={maxStep} />
           <div className={clsx("min-h-full flex gap-4 flex-col w-full md:w-80", step + 1 === maxStep ? "hidden" : "")}>
             {false ? (
