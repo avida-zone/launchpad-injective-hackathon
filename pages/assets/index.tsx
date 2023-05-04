@@ -1,18 +1,18 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useQuery } from "react-query";
 import Button from "~/components/Buttons/Button";
 import Spinner from "~/components/Spinner";
 import ConnectWallet from "~/components/layout/ConnectWallet";
+import useRest from "~/hooks/useRest";
 import { CoinInfo } from "~/interfaces";
 import { useCosmos } from "~/providers/CosmosProvider";
 import { convertMicroDenomToDenom } from "~/utils/conversation";
 
 const Assets: NextPage = () => {
   const { isWalletConnected, queryService, address, defaultFee } = useCosmos();
-  const { data, isLoading } = useQuery(["balances", queryService, address], () => queryService?.getAllBalances(address as string));
+  const { data, loading } = useRest(() => queryService?.getAllBalances(address as string));
 
-  if (isLoading)
+  if (loading)
     return (
       <div className="w-full mx-auto max-layout min-h-screen flex items-center justify-center pt-32 pb-12 relative">
         <Spinner />
@@ -26,7 +26,7 @@ const Assets: NextPage = () => {
       </Head>
       <div className="w-full mx-auto max-layout min-h-screen pt-32 pb-12 flex flex-col px-4 relative gap-8">
         <h2 className="text-4xl w-full relative z-10">Assets</h2>
-        {isWalletConnected ? (
+        {isWalletConnected && data ? (
           <div className="flex flex-col gap-4">
             <div className="flex flex-1 flex-col gap-4">
               <p className="text-sm text-gray-400">Native Tokens</p>

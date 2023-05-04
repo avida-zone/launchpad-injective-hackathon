@@ -1,5 +1,13 @@
 import { toUtf8 } from "@cosmjs/encoding";
-import { WCredentialPrimaryPubKey, WCredentialPubKey, WSubProofReqParams } from "~/interfaces/launchpad";
+import {
+  WAggregatedProof,
+  WCredentialPrimaryPubKey,
+  WCredentialPubKey,
+  WPrimaryEqualProof,
+  WProof,
+  WSubProof,
+  WSubProofReqParams,
+} from "~/interfaces/launchpad";
 import { BigNumberBytes, WBTreeSetForString, WMap, WSubProofReq } from "~/interfaces/vcverifier";
 
 export function parseSubProofReqParam(input: string): WSubProofReqParams {
@@ -52,4 +60,34 @@ export function toWMap(e: {}): WMap {
     w_map.push([Array.from(toUtf8(key)), toBigNumberBytes(value)]);
   });
   return w_map;
+}
+
+export function parseProof(proofJSON: WProof): WProof {
+  const aggregatedProof: WAggregatedProof = {
+    c_hash: toBigNumberBytes(proofJSON.aggregated_proof.c_hash),
+    c_list: proofJSON.aggregated_proof.c_list,
+  };
+
+  let parsedSubProofs: WSubProof[] = [];
+
+  const subProofs = proofJSON.proofs;
+  for (const s of subProofs) {
+    const eqProof = s.primary_proof.eq_proof;
+    let prim_eq_proof: WPrimaryEqualProof = {
+      a_prime: toBigNumberBytes(eqProof.a_prime),
+      e: toBigNumberBytes(eqProof.e),
+      m: toWMap(eqProof.m),
+      m2: toBigNumberBytes(eqProof.m2),
+      revealed_attrs: toWMap(eqProof.revealed_attrs),
+      v: toBigNumberBytes(eqProof.v),
+    };
+    parsedSubProofs.push({
+      primary_proof: { eq_proof: prim_eq_proof, ne_proofs: [] },
+    } as WSubProof);
+  }
+
+  return {
+    aggregated_proof: aggregatedProof,
+    proofs: parsedSubProofs,
+  };
 }

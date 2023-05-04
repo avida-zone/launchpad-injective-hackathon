@@ -11,29 +11,29 @@ const queryClient = new QueryClient();
 
 const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <ChainProvider
-      assetLists={assets}
-      chains={chains}
-      wallets={[...vectisWallet]}
-      endpointOptions={{
-        endpoints: {
-          junotestnet: {
-            rest: ["https://rest.testcosmos.directory/junotestnet"],
-            rpc: ["https://rpc.testcosmos.directory/junotestnet"],
+    <QueryClientProvider client={queryClient}>
+      <ChainProvider
+        assetLists={assets}
+        chains={chains}
+        wallets={[...vectisWallet]}
+        endpointOptions={{
+          endpoints: {
+            junotestnet: {
+              rest: ["https://rest.testcosmos.directory/junotestnet"],
+              rpc: ["https://rpc.testcosmos.directory/junotestnet"],
+            },
+            injectivetestnet: {
+              rest: ["https://rest.testcosmos.directory/injectivetestnet"],
+              rpc: ["https://rpc.testcosmos.directory/injectivetestnet"],
+            },
           },
-          injectivetestnet: {
-            rest: ["https://rest.testcosmos.directory/injectivetestnet"],
-            rpc: ["https://rpc.testcosmos.directory/injectivetestnet"],
-          },
-        },
-      }}
-    >
-      <QueryClientProvider client={queryClient}>
+        }}
+      >
         <CosmosProvider>
           <ModalProvider>{children}</ModalProvider>
         </CosmosProvider>
-      </QueryClientProvider>
-    </ChainProvider>
+      </ChainProvider>
+    </QueryClientProvider>
   );
 };
 

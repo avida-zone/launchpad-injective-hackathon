@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 import Button from "~/components/Buttons/Button";
+import useRest from "~/hooks/useRest";
 import ModalTypes from "~/interfaces/ModalTypes";
 import { useCosmos } from "~/providers/CosmosProvider";
 import { useModal } from "~/providers/ModalProvider";
@@ -11,16 +11,14 @@ const Project: NextPage = () => {
   const { queryService } = useCosmos();
   const { showModal } = useModal();
   const { query } = useRouter();
-  const { data: tokenInfo, isLoading } = useQuery(["project", queryService, query.tokenAddr], () =>
-    queryService?.getProject(query.tokenAddr as string)
-  );
+  const { data: tokenInfo, loading } = useRest(() => queryService?.getProject(query.tokenAddr as string));
 
   return (
     <>
       <Head>
         <title>Avipad</title>
       </Head>
-      {isLoading ? (
+      {loading || !tokenInfo ? (
         <p className="flex flex-1 h-full w-full">loading</p>
       ) : (
         <div className="w-full mx-auto max-layout min-h-screen pt-32 pb-12 flex flex-col px-4 relative gap-8">
@@ -81,7 +79,17 @@ const Project: NextPage = () => {
                 </div>
               </div>
               <div className=" flex flex-col gap-4 justify-end">
-                <Button onClick={() => showModal(ModalTypes.buyTickets)}>Buy Tokens</Button>
+                <Button
+                  onClick={() =>
+                    showModal(ModalTypes.buyTickets, {
+                      contractAddress: query.tokenAddr,
+                      tokenSymbol: tokenInfo.symbol,
+                      exponent: tokenInfo.exponent,
+                    })
+                  }
+                >
+                  Buy Tokens
+                </Button>
               </div>
             </div>
           </div>

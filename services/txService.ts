@@ -33,9 +33,25 @@ export class TxService extends QueryService {
     return new TxService(tmClient, client, address, defaultFee, addresses);
   }
 
-  async createRgToken(message: any, fee?: number): Promise<void> {
+  async createRgToken(message: any): Promise<void> {
     await this.txClient.execute(this.userAddr, this.addresses.launchpadAddress, message, "auto", undefined, [
       { amount: Math.pow(10, 19).toString(), denom: "inj" },
+    ]);
+  }
+
+  async buyRgToken(controllerAddr: string, contractAddr: string, amount: string): Promise<void> {
+    const correctMintFee = "300000000000000000";
+    const nonce = await this.getNonce(contractAddr, this.userAddr);
+    const proof = await this.generateProof(controllerAddr, this.userAddr, nonce);
+    const mint_msg = {
+      mint: {
+        amount,
+        proof,
+        rg_token_addr: contractAddr,
+      },
+    };
+    await this.txClient.execute(this.userAddr, this.addresses.launchpadAddress, mint_msg, "auto", undefined, [
+      { denom: "inj", amount: correctMintFee },
     ]);
   }
 }

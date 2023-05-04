@@ -81,6 +81,8 @@ const CosmosProvider: React.FC<PropsWithChildren> = ({ children }) => {
     })();
   }, [address]);
 
+  if (!queryService) return <p>loading</p>;
+
   return (
     <CosmosContext.Provider
       value={

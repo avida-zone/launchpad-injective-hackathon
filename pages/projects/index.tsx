@@ -1,12 +1,12 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useQuery } from "react-query";
+import useRest from "~/hooks/useRest";
 import { useCosmos } from "~/providers/CosmosProvider";
 
 const Projects: NextPage = () => {
-  const { queryService, address } = useCosmos();
-  const { data: projects } = useQuery(["projects", queryService, address], () => queryService?.getNewProjects("transform"));
+  const { queryService } = useCosmos();
+  const { data: projects } = useRest(() => queryService?.getNewProjects("transform"));
 
   return (
     <>

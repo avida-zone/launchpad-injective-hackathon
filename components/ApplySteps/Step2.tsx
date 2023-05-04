@@ -3,9 +3,9 @@ import InputRadio from "../Inputs/InputRadio";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "../Buttons/Button";
 import { useCosmos } from "~/providers/CosmosProvider";
-import { useQuery } from "react-query";
 import { useFormContext } from "react-hook-form";
 import { FormInputsRG20 } from "./StepContainer";
+import useRest from "~/hooks/useRest";
 
 const issuers = ["Gayadeed SpA", "Identrust LLC", "InfoCert SpA"];
 const schemas = ["Identify Verification (Physical person)", "AML Checks", "Corporative verification"];
@@ -18,7 +18,8 @@ interface Props {
 const Step2: React.FC<Props> = ({ goBack, goNext }) => {
   const [selectProof, setSelectProof] = useState<number>(0);
   const { queryService } = useCosmos();
-  const { data: proofs } = useQuery(["proofs"], () => queryService.getIssuerRequestParams());
+
+  const { data: proofs } = useRest(() => queryService.getIssuerRequestParams());
   const { setValue } = useFormContext<FormInputsRG20>();
 
   useEffect(() => {

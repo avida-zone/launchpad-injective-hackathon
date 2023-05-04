@@ -13,9 +13,9 @@ import {
 import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import axios, { AxiosInstance } from "axios";
 import { ContractAddresses } from "~/interfaces/contracts";
-import { ContractResponse } from "~/interfaces/launchpad";
+import { ContractResponse, WProof } from "~/interfaces/launchpad";
 import { TokenInfoResponse } from "~/interfaces/rgcw20";
-import { parseSubProofReqParam } from "~/utils/misc";
+import { parseProof, parseSubProofReqParam } from "~/utils/misc";
 
 export class QueryService {
   query: QueryClient & StakingExtension & BankExtension & TxExtension & DistributionExtension & WasmExtension;
@@ -40,6 +40,12 @@ export class QueryService {
   static async connect(rpcUrl: string, addresses: ContractAddresses): Promise<QueryService> {
     const tmClient = await this.getTmClient(rpcUrl);
     return new QueryService(tmClient, addresses);
+  }
+
+  async getNonce(contractAddress: string, address: string) {
+    return await this.query.wasm.queryContractSmart(contractAddress, {
+      proof_nonce: { address },
+    });
   }
 
   async getIssuerRequestParams() {
@@ -69,6 +75,15 @@ export class QueryService {
     const marketing = await this.query.wasm.queryContractSmart(contractAddress, { marketing_info: {} });
     const issuer = await this.query.wasm.queryContractSmart(contractAddress, { trusted_issuers: {} });
     return { ...response, ...marketing, issuer };
+  }
+
+  async generateProof(controller_addr: string, wallet_addr: string, nonce: string): Promise<WProof> {
+    const { data } = await axios.post(
+      `https://api-testnet.avida.zone/generate-proof/${controller_addr}/${wallet_addr}/${nonce}/?issuer=gayadeed&issuer=identrust&issuer=infocert`,
+      { responseType: "json" }
+    );
+
+    return parseProof(data);
   }
 
   async getAllBalances(address: string) {
