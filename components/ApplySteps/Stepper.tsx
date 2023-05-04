@@ -9,7 +9,7 @@ const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, 
       <div className="flex items-center justify-center w-full md:px-14 px-4">
         {Array.from({ length: maxStep }).map((_, i) => {
           return (
-            <>
+            <React.Fragment key={`step-${i}`}>
               <div
                 className={clsx(
                   "transition-all border rounded-full p-2 w-8 h-8 text-lg leading-6 flex items-center justify-center",
@@ -17,7 +17,6 @@ const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, 
                   { "border-java-green-500 text-java-green-700": i >= currentStep },
                   { "!border-success text-success": i === maxStep - 1 && i === currentStep }
                 )}
-                key={`step-${i}`}
               >
                 {i + 1}
               </div>
@@ -34,7 +33,7 @@ const Stepper: React.FC<{ maxStep: number; currentStep: number }> = ({ maxStep, 
                   { hidden: i === maxStep - 1 }
                 )}
               />
-            </>
+            </React.Fragment>
           );
         })}
       </div>

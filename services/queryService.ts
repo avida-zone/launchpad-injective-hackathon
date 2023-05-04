@@ -1,19 +1,41 @@
-import { Network, NetworkEndpoints, getNetworkEndpoints } from "@injectivelabs/networks";
-import { ChainGrpcWasmApi } from "@injectivelabs/sdk-ts";
+import { WasmExtension, setupWasmExtension } from "@cosmjs/cosmwasm-stargate";
+import {
+  BankExtension,
+  DistributionExtension,
+  QueryClient,
+  StakingExtension,
+  TxExtension,
+  setupBankExtension,
+  setupDistributionExtension,
+  setupStakingExtension,
+  setupTxExtension,
+} from "@cosmjs/stargate";
+import { HttpBatchClient, Tendermint34Client } from "@cosmjs/tendermint-rpc";
+import axios, { AxiosInstance } from "axios";
+import { ContractAddresses } from "~/interfaces/contracts";
 
 export class QueryService {
-  network: Network;
-  endpoints: NetworkEndpoints;
-  wasmApi: ChainGrpcWasmApi;
-  constructor() {
-    this.network = Network.Testnet;
-    this.endpoints = getNetworkEndpoints(this.network);
-    this.wasmApi = new ChainGrpcWasmApi(this.endpoints.grpc);
+  query: QueryClient & StakingExtension & BankExtension & TxExtension & DistributionExtension & WasmExtension;
+  http: AxiosInstance;
+  constructor(readonly tmClient: Tendermint34Client, readonly addresses: ContractAddresses) {
+    this.http = axios.create();
+    this.query = QueryClient.withExtensions(
+      tmClient,
+      setupStakingExtension,
+      setupBankExtension,
+      setupTxExtension,
+      setupWasmExtension,
+      setupDistributionExtension
+    );
   }
 
-  async queryWasm<T>(contractAddr: string, msg: unknown): Promise<T> {
-    const query = Buffer.from(JSON.stringify(msg)).toString("base64");
-    const response = await this.wasmApi.fetchSmartContractState(contractAddr, query);
-    return JSON.parse(Buffer.from(response.data).toString()) as T;
+  static async getTmClient(rpcUrl: string): Promise<Tendermint34Client> {
+    const httpClient = new HttpBatchClient(rpcUrl, { batchSizeLimit: 10 });
+    return await Tendermint34Client.create(httpClient);
+  }
+
+  static async connect(rpcUrl: string, addresses: ContractAddresses): Promise<QueryService> {
+    const tmClient = await this.getTmClient(rpcUrl);
+    return new QueryService(tmClient, addresses);
   }
 }
