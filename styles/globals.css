@@ -1,8 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import "./triangule.css";
 @import "./switch.css";
+@import "./spinner-triangles.css";
 
 .max-layout {
   max-width: 1200px;

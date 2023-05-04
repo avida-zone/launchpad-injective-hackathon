@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useQuery } from "react-query";
 import Button from "~/components/Buttons/Button";
+import Spinner from "~/components/Spinner";
 import ConnectWallet from "~/components/layout/ConnectWallet";
 import { CoinInfo } from "~/interfaces";
 import { useCosmos } from "~/providers/CosmosProvider";
@@ -11,7 +12,12 @@ const Assets: NextPage = () => {
   const { isWalletConnected, queryService, address, defaultFee } = useCosmos();
   const { data, isLoading } = useQuery(["balances", queryService, address], () => queryService?.getAllBalances(address as string));
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="w-full mx-auto max-layout min-h-screen flex items-center justify-center pt-32 pb-12 relative">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
