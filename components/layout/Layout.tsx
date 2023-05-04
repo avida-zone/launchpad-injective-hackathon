@@ -36,7 +36,7 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       <ControlModal />
       <Navbar />
       <main
-        className={clsx("w-full overflow-hidden bg-gradient-to-bl from-gray-50 lg:from-60% from-70% to-java-green-600", {
+        className={clsx("w-full overflow-hidden bg-gradient-to-bl from-gray-50 lg:from-60% from-70% to-java-green-600 min-h-screen", {
           "lg:snap-mandatory lg:snap-y transition-all lg:scrollbar-none relative lg:overflow-scroll lg:h-screen": pathname === "/",
         })}
       >
