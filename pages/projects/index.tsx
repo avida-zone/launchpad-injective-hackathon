@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Dropdown from "~/components/Inputs/Dropdown";
 import Spinner from "~/components/Spinner";
 import { useCosmos } from "~/providers/CosmosProvider";
 
@@ -11,16 +12,17 @@ const Projects: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [projects, setProjects] = useState<any | null>([]);
   const { push: goToPage } = useRouter();
+  const [projectType, setProjectType] = useState<"new" | "transform">("new");
 
   useEffect(() => {
     (async () => {
       if (!queryService) return;
       setIsLoading(true);
-      const response = await queryService.getNewProjects("new");
+      const response = await queryService.getNewProjects(projectType);
       setProjects(response);
       setIsLoading(false);
     })();
-  }, [queryService]);
+  }, [queryService, projectType]);
 
   if (isLoading)
     return (
@@ -29,6 +31,10 @@ const Projects: NextPage = () => {
       </div>
     );
 
+  const onChange = (e: { value: string; label: string }) => {
+    setProjectType(e.value as "new" | "transform");
+  };
+
   return (
     <>
       <Head>
@@ -36,10 +42,20 @@ const Projects: NextPage = () => {
       </Head>
       <div className="w-full mx-auto max-layout min-h-screen pt-32 pb-12 flex flex-col px-4 relative gap-8">
         <div className="w-[15rem] h-[15rem] absolute top-[8rem] right-[5rem] bg-kashmir-blue-500 rounded-full blur-3xl" />
-        <h2 className="text-4xl w-full text-center relative z-10">Projects</h2>
+        <div className="flex items-center justify-between w-full ">
+          <h2 className="text-4xl z-10 flex-1">Projects</h2>
+          <Dropdown
+            onChange={onChange}
+            containerClassName="!w-fit"
+            options={[
+              { value: "new", label: "New" },
+              { value: "transform", label: "Transform" },
+            ]}
+          />
+        </div>
         <div className="w-full grid grid-cols-auto-280 relative z-1 gap-4 gap-y-6 lg:gap-y-8">
           {projects.length
-            ? projects?.map((project, i) => {
+            ? projects?.map((project, i: number) => {
                 return (
                   <button
                     onClick={() => {

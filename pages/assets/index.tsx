@@ -23,8 +23,6 @@ const Assets: NextPage = () => {
     })();
   }, [queryService, address]);
 
-  console.log(balances);
-
   return (
     <>
       <Head>
@@ -36,7 +34,7 @@ const Assets: NextPage = () => {
           <div className="flex flex-col gap-4">
             <div className="flex flex-1 flex-col gap-4">
               <p className="text-sm text-gray-400">Native Tokens</p>
-              {balances?.nativeBalances?.map((asset, i) => {
+              {balances?.nativeBalances.map((asset, i: number) => {
                 const token = asset.denom === "inj" ? defaultFee : (asset as unknown as CoinInfo);
                 return (
                   <div
