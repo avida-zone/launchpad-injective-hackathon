@@ -33,7 +33,7 @@ export const modalDropIn = {
 
 const ControlModal: React.FC = () => {
   const { activeModal, isModalVisible, hideModal } = useModal();
-  const Modal = useMemo(() => modals[activeModal as unknown as keyof typeof modals], [activeModal]);
+  const Modal = useMemo(() => modals[activeModal?.modalName as unknown as keyof typeof modals], [activeModal]);
 
   if (!isModalVisible || !activeModal) return <AnimatePresence initial={false} mode="wait" onExitComplete={() => null} />;
 
@@ -60,7 +60,7 @@ const ControlModal: React.FC = () => {
                 <CrossCircleIcon className="w-5 h-5 text-gray-500" />
               </button>
             </div>
-            <Modal />
+            <Modal {...activeModal.modalProps} />
           </div>
         </motion.div>
       </motion.div>

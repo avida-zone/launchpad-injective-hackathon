@@ -2,21 +2,21 @@ import React, { useState, useCallback, PropsWithChildren } from "react";
 import ModalTypes from "../interfaces/ModalTypes";
 
 interface ModalStatus {
-  showModal: (modalName: ModalTypes, modalProps?: unknown) => void;
+  showModal: (modalName: ModalTypes, modalProps?: Record<string, unknown>) => void;
   hideModal: () => void;
   isModalVisible: boolean;
-  activeModal?: ModalTypes;
+  activeModal?: { modalName: ModalTypes; modalProps: Record<string, unknown> };
 }
 
 const ModalContext = React.createContext<ModalStatus | null>(null);
 
 export const ModalProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const [activeModal, setSelectedModal] = useState<ModalTypes>();
+  const [activeModal, setSelectedModal] = useState<{ modalName: ModalTypes; modalProps: Record<string, unknown> }>();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = useCallback(
-    (modalName: ModalTypes) => {
-      setSelectedModal(modalName);
+    (modalName: ModalTypes, modalProps?: Record<string, unknown>) => {
+      setSelectedModal({ modalName, modalProps: modalProps || {} });
       setIsModalVisible(true);
     },
     [setSelectedModal, setIsModalVisible]
