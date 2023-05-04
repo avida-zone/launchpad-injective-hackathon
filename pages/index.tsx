@@ -152,7 +152,7 @@ const Home: NextPage = () => {
             <TimeLine list={timeLineTexts} />
           </div>
           <Button as={Link} href="/apply" className="w-fit mt-8" scale="lg" variant="secondary">
-            Create your RG-Token Proposal
+            Create RG-Token
           </Button>
         </div>
       </section>

@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
         >
           <div className="flex flex-col gap-4">
             <Link href="/apply" className="hover:text-java-green-600 transition-all bg-white p-4 w-full rounded-lg">
-              Create RG-Token Proposal
+              Create RG-Token
             </Link>
             <Link href="/projects" className="hover:text-java-green-600 transition-all bg-white p-4 w-full rounded-lg">
               Projects
@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
           {isLg && (
             <div className="items-center flex text-sm gap-6 font-bold">
               <Link href="/apply" className="hover:text-java-green-600 transition-all">
-                Create RG-Token Proposal
+                Create RG-Token
               </Link>
               <Link href="/projects" className="hover:text-java-green-600 transition-all">
                 Projects
