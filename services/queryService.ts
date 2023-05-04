@@ -70,4 +70,33 @@ export class QueryService {
     const issuer = await this.query.wasm.queryContractSmart(contractAddress, { trusted_issuers: {} });
     return { ...response, ...marketing, issuer };
   }
+
+  async getAllBalances(address: string) {
+    const nativeBalances = await this.query.bank.allBalances(address);
+    const newRgTokens = await this.getNewProjects("new");
+    const transformRgTokens = await this.getNewProjects("transform");
+    const rgNewTokensBalance = await Promise.all(
+      newRgTokens.map(async (p) => {
+        const balance = await this.query.wasm.queryContractSmart(p.contract_address, { balance: { address } });
+        return {
+          ...p,
+          balance,
+        };
+      })
+    );
+    const rgTransformTokensBalance = await Promise.all(
+      transformRgTokens.map(async (p) => {
+        const balance = await this.query.wasm.queryContractSmart(p.contract_address, { balance: { address } });
+        return {
+          ...p,
+          balance,
+        };
+      })
+    );
+    return {
+      nativeBalances,
+      rgNewTokensBalance: rgNewTokensBalance.filter((p) => Number(p.balance.amount)),
+      rgTransformTokensBalance: rgTransformTokensBalance.filter((p) => Number(p.balance.amount)),
+    };
+  }
 }

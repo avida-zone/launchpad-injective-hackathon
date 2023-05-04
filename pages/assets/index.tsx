@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import { useQuery } from "react-query";
 import Button from "~/components/Buttons/Button";
+import { useCosmos } from "~/providers/CosmosProvider";
 
 const projects = [
   {
@@ -91,7 +93,9 @@ const projects = [
 ];
 
 const Assets: NextPage = () => {
-  const walletConnected = true;
+  const { isWalletConnected, queryService, address } = useCosmos();
+  const { data } = useQuery(["balances", queryService, address], () => queryService?.getAllBalances(address as string));
+  console.log(data);
   return (
     <>
       <Head>
@@ -99,7 +103,7 @@ const Assets: NextPage = () => {
       </Head>
       <div className="w-full mx-auto max-layout min-h-screen pt-32 pb-12 flex flex-col px-4 relative gap-8">
         <h2 className="text-4xl w-full relative z-10">Assets</h2>
-        {walletConnected ? (
+        {isWalletConnected ? (
           <div className="flex flex-col gap-4">
             {projects.map((asset, i) => {
               return (

@@ -9,6 +9,7 @@ interface CosmosContextProps {
   connect: () => Promise<void>;
   address?: string;
   username?: string;
+  isWalletConnected: boolean;
   defaultFee: CoinInfo;
   addresses: ContractAddresses;
   queryService: QueryService;
@@ -26,6 +27,7 @@ const CosmosProvider: React.FC<PropsWithChildren> = ({ children }) => {
     chain: chainInfo,
     assets,
     getOfflineSignerDirect,
+    isWalletConnected,
     disconnect,
   } = useChainWallet("injectivetestnet", "vectis-extension");
   const [txService, setTxService] = useState<TxService | null>(null);
@@ -81,7 +83,9 @@ const CosmosProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <CosmosContext.Provider
-      value={{ connect, address, username, defaultFee, disconnect, queryService, txService, addresses } as CosmosContextProps}
+      value={
+        { connect, address, username, defaultFee, disconnect, isWalletConnected, queryService, txService, addresses } as CosmosContextProps
+      }
     >
       {children}
     </CosmosContext.Provider>
